@@ -1,0 +1,150 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /api/v1/clients/{id}:
+    get:
+      tags:
+      - cliente-controller
+      operationId: getById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+    put:
+      tags:
+      - cliente-controller
+      operationId: updateCliente
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+    delete:
+      tags:
+      - cliente-controller
+      operationId: deleteCliente
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/v1/clients:
+    get:
+      tags:
+      - cliente-controller
+      operationId: getAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClienteResponse'
+    post:
+      tags:
+      - cliente-controller
+      operationId: createClient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+components:
+  schemas:
+    ClienteRequest:
+      required:
+      - clienteId
+      - contrasenia
+      - identificacion
+      - nombre
+      type: object
+      properties:
+        nombre:
+          type: string
+        genero:
+          type: string
+        edad:
+          minimum: 18
+          type: integer
+          format: int32
+        identificacion:
+          type: string
+        direccion:
+          type: string
+        telefono:
+          pattern: "^[0-9]{10}$|^$"
+          type: string
+        clienteId:
+          type: string
+        contrasenia:
+          type: string
+        estado:
+          type: boolean
+    ClienteResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        clienteId:
+          type: string
+        nombre:
+          type: string
+        genero:
+          type: string
+        edad:
+          type: integer
+          format: int32
+        identificacion:
+          type: string
+        direccion:
+          type: string
+        telefono:
+          type: string
+        estado:
+          type: boolean

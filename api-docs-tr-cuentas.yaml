@@ -1,0 +1,394 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8081
+  description: Generated server url
+paths:
+  /api/v1/rclients/{id}:
+    put:
+      tags:
+      - cliente-cuenta-controller
+      operationId: updateReplica
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteReplica'
+        required: true
+      responses:
+        "200":
+          description: OK
+    delete:
+      tags:
+      - cliente-cuenta-controller
+      operationId: deleteReplica
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/v1/movements/{id}:
+    get:
+      tags:
+      - movimiento-controller
+      operationId: getById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MovimientoResponse'
+    put:
+      tags:
+      - movimiento-controller
+      operationId: update
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovimientoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MovimientoResponse'
+    delete:
+      tags:
+      - movimiento-controller
+      operationId: delete
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/v1/accounts/{id}:
+    get:
+      tags:
+      - cuenta-controller
+      operationId: getById_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CuentaResponse'
+    put:
+      tags:
+      - cuenta-controller
+      operationId: update_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CuentaRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CuentaResponse'
+    delete:
+      tags:
+      - cuenta-controller
+      operationId: delete_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+  /api/v1/rclients:
+    post:
+      tags:
+      - cliente-cuenta-controller
+      operationId: createOrUpdateReplica
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteReplica'
+        required: true
+      responses:
+        "200":
+          description: OK
+  /api/v1/movements:
+    get:
+      tags:
+      - movimiento-controller
+      operationId: getAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovimientoResponse'
+    post:
+      tags:
+      - movimiento-controller
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovimientoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MovimientoResponse'
+  /api/v1/accounts:
+    get:
+      tags:
+      - cuenta-controller
+      operationId: getAll_1
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CuentaResponse'
+    post:
+      tags:
+      - cuenta-controller
+      operationId: create_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CuentaRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CuentaResponse'
+  /api/v1/reports/{clienteId}:
+    get:
+      tags:
+      - reporte-controller
+      operationId: getReport
+      parameters:
+      - name: clienteId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: startDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ReporteEstadoCuentaResponse'
+components:
+  schemas:
+    ClienteReplica:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        clienteId:
+          type: string
+        nombre:
+          type: string
+        estado:
+          type: boolean
+    MovimientoRequest:
+      required:
+      - numeroCuenta
+      - tipoMovimiento
+      - valor
+      type: object
+      properties:
+        numeroCuenta:
+          type: string
+        tipoMovimiento:
+          type: string
+        valor:
+          type: number
+    MovimientoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        numeroCuenta:
+          type: string
+        tipoCuenta:
+          type: string
+        fecha:
+          type: string
+          format: date-time
+        estado:
+          type: boolean
+        tipoMovimiento:
+          type: string
+        valor:
+          type: number
+        saldo:
+          type: number
+    CuentaRequest:
+      required:
+      - clienteId
+      - numeroCuenta
+      - saldoInicial
+      - tipoCuenta
+      type: object
+      properties:
+        numeroCuenta:
+          maxLength: 2147483647
+          minLength: 6
+          type: string
+        tipoCuenta:
+          type: string
+        saldoInicial:
+          minimum: 0
+          type: number
+        estado:
+          type: boolean
+        clienteId:
+          type: integer
+          format: int64
+    CuentaResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        numeroCuenta:
+          type: string
+        tipoCuenta:
+          type: string
+        saldoInicial:
+          type: number
+        estado:
+          type: boolean
+        clienteId:
+          type: string
+        nombreCliente:
+          type: string
+    ReporteCuenta:
+      type: object
+      properties:
+        numeroCuenta:
+          type: string
+        tipoCuenta:
+          type: string
+        saldoActual:
+          type: number
+        estado:
+          type: boolean
+        movimientos:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReporteMovimiento'
+    ReporteEstadoCuentaResponse:
+      type: object
+      properties:
+        clienteId:
+          type: string
+        nombreCliente:
+          type: string
+        rangoFechasSolicitado:
+          type: string
+        cuentas:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReporteCuenta'
+    ReporteMovimiento:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        fecha:
+          type: string
+          format: date-time
+        tipoMovimiento:
+          type: string
+        valor:
+          type: number
+        saldo:
+          type: number
