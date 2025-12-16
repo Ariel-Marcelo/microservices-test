@@ -15,21 +15,16 @@ Este proyecto es una solución backend para un sistema financiero que gestiona *
 
 ---
 
-## 🚀 Ejecución Microservicios RabbitMq 
+## 🚀 Ejecución Microservicios Comunicación REST 
 
-A modo de demostración se realizo una versión con comunicación de microservicios por medio de colas.
+A modo de demostración se realizo una versión con comunicación de microservicios por medio de api rest.
 
 ### Prerrequisitos
-* Docker y Docker Compose instalados.
+* Maven
 * Bases de datos postgresql tr_cuentas y tr_clientes creadas usuario  'postgres' y contraseña 'admin' (Configurable)
 
 ### Pasos
 1.  Clona el repositorio y ubícate en la raíz del proyecto.
-2.  Ejecuta el siguiente comando para levantar rabbitmq con docker 
-
-```bash
-docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
-```
 
 ## Ejecución con Maven
 

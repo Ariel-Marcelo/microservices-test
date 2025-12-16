@@ -1,7 +1,8 @@
-package com.demo.trclientes.infrastructure.infrastructure.cliente;
+package com.demo.trclientes.infrastructure.repositories.cliente;
 
 import com.demo.trclientes.domain.dtos.cliente.ClienteRepositoryPort;
 import com.demo.trclientes.domain.models.Cliente;
+import com.demo.trclientes.infrastructure.repositories.cliente.ClienteJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

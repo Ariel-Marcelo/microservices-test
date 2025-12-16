@@ -1,18 +1,15 @@
 package com.demo.trclientes.application;
 
-import com.demo.trclientes.config.RabbitConfig;
 import com.demo.trclientes.domain.dtos.cliente.ClienteMapper;
 import com.demo.trclientes.domain.dtos.cliente.ClienteRepositoryPort;
 import com.demo.trclientes.domain.dtos.cliente.ClienteServicePort;
-import com.demo.trclientes.domain.dtos.cliente.events.ClienteCreatedEvent;
-import com.demo.trclientes.domain.dtos.cliente.events.ClienteDeletedEvent;
-import com.demo.trclientes.domain.dtos.cliente.events.ClienteUpdatedEvent;
+import com.demo.trclientes.domain.dtos.cliente.replica.ClienteReplica;
 import com.demo.trclientes.domain.dtos.cliente.requests.ClienteRequest;
 import com.demo.trclientes.domain.dtos.cliente.responses.ClienteResponse;
 import com.demo.trclientes.domain.models.Cliente;
+import com.demo.trclientes.infrastructure.repositories.cliente.api.CuentaRestClient;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,18 +21,18 @@ import java.util.stream.Collectors;
 public class ClienteService implements ClienteServicePort {
 
     private final ClienteRepositoryPort repository;
-    private final RabbitTemplate rabbitTemplate;
+    private final CuentaRestClient cuentaRestClient;
 
     @Override
     public ClienteResponse create(ClienteRequest clienteRequest) {
         var user = ClienteMapper.INSTANCE.toEntity(clienteRequest);
         Cliente cliente = repository.save(user);
-        ClienteCreatedEvent event = new ClienteCreatedEvent(
-                cliente.getId(),
-                cliente.getClienteId(),
-                cliente.getNombre()
-        );
-        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE_NAME, RabbitConfig.ROUTING_KEY_CREATED, event);
+        ClienteReplica replica = ClienteReplica.builder()
+                .id(cliente.getId())
+                .clienteId(cliente.getClienteId())
+                .nombre(cliente.getNombre())
+                .build();
+        cuentaRestClient.notifyCreate(replica);
         return ClienteMapper.INSTANCE.toResponse(cliente);
     }
 
@@ -45,16 +42,12 @@ public class ClienteService implements ClienteServicePort {
         ClienteMapper.INSTANCE.updateEntityFromRequest(clienteRequest, client);
         Cliente updatedClient = repository.save(client);
 
-        ClienteUpdatedEvent event = new ClienteUpdatedEvent(
-                updatedClient.getId(),
-                updatedClient.getClienteId(),
-                updatedClient.getNombre()
-        );
-        rabbitTemplate.convertAndSend(
-                RabbitConfig.EXCHANGE_NAME,
-                RabbitConfig.ROUTING_KEY_UPDATED,
-                event
-        );
+        ClienteReplica replica = ClienteReplica.builder()
+                .id(updatedClient.getId())
+                .clienteId(updatedClient.getClienteId())
+                .nombre(updatedClient.getNombre())
+                .build();
+        cuentaRestClient.notifyUpdate(updatedClient.getId(), replica);
         return ClienteMapper.INSTANCE.toResponse(updatedClient);
     }
 
@@ -63,12 +56,7 @@ public class ClienteService implements ClienteServicePort {
         Cliente cliente = repository.getActiveClientById(id);
         cliente.setEstado(false);
         repository.save(cliente);
-        ClienteDeletedEvent event = new ClienteDeletedEvent(id);
-        rabbitTemplate.convertAndSend(
-                RabbitConfig.EXCHANGE_NAME,
-                RabbitConfig.ROUTING_KEY_DELETED,
-                event
-        );
+        cuentaRestClient.notifyDelete(id);
     }
 
     @Override
