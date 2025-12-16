@@ -15,11 +15,11 @@ public class CuentaRestClient {
     private final RestTemplate restTemplate;
 
     @Value("${tr-cuentas.url}")
-    private String urlCuentas;
+    private String urlAccountService;
 
     public void notifyCreate(ClienteReplica dto) {
         try {
-            restTemplate.postForEntity(urlCuentas, dto, Void.class);
+            restTemplate.postForEntity(urlAccountService, dto, Void.class);
             log.info("Sincronización exitosa con Cuentas para ID: {}", dto.getClienteId());
         } catch (Exception e) {
             log.error("Error al comunicarse con ms-cuentas: {}", e.getMessage());
@@ -29,7 +29,7 @@ public class CuentaRestClient {
 
     public void notifyUpdate(Long id, ClienteReplica dto) {
         try {
-            String url = urlCuentas + "/" + id;
+            String url = urlAccountService + "/" + id;
             restTemplate.put(url, dto);
             log.info("Actualización REST exitosa para ID: {}", id);
         } catch (Exception e) {
@@ -40,7 +40,7 @@ public class CuentaRestClient {
 
     public void notifyDelete(Long id) {
         try {
-            String url = urlCuentas + "/" + id;
+            String url = urlAccountService + "/" + id;
             restTemplate.delete(url);
             log.info("Eliminación REST exitosa para ID: {}", id);
         } catch (Exception e) {

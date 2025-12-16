@@ -1,6 +1,7 @@
 package com.demo.trcuentas.controllers;
 
 import com.demo.trcuentas.application.CuentaService;
+import com.demo.trcuentas.domain.dtos.ApiResponse;
 import com.demo.trcuentas.domain.dtos.cuenta.requests.CuentaRequest;
 import com.demo.trcuentas.domain.dtos.cuenta.responses.CuentaResponse;
 import jakarta.validation.Valid;
@@ -20,7 +21,7 @@ public class CuentaController {
     private final CuentaService cuentaService;
 
     @PostMapping
-    public ResponseEntity<CuentaResponse> create(@RequestBody @Valid CuentaRequest request) {
+    public ResponseEntity<ApiResponse<CuentaResponse>> create(@RequestBody @Valid CuentaRequest request) {
 
         CuentaResponse createdCuenta = cuentaService.create(request);
 
@@ -30,33 +31,34 @@ public class CuentaController {
                 .buildAndExpand(createdCuenta.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(createdCuenta);
+        return ResponseEntity.created(location)
+                .body(ApiResponse.success(createdCuenta));
     }
 
     @GetMapping
-    public ResponseEntity<List<CuentaResponse>> getAll() {
+    public ResponseEntity<ApiResponse<List<CuentaResponse>>> getAll() {
         List<CuentaResponse> response = cuentaService.getAll();
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CuentaResponse> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(cuentaService.getById(id));
+    public ResponseEntity<ApiResponse<CuentaResponse>> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.success(cuentaService.getById(id)));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CuentaResponse> update(
+    public ResponseEntity<ApiResponse<CuentaResponse>> update(
             @PathVariable Long id,
             @RequestBody @Valid CuentaRequest request) {
 
         CuentaResponse updatedCuenta = cuentaService.update(id, request);
-        return ResponseEntity.ok(updatedCuenta);
+        return ResponseEntity.ok(ApiResponse.success(updatedCuenta));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         cuentaService.delete(id);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(ApiResponse.success(null));
     }
 }

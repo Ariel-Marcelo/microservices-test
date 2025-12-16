@@ -1,6 +1,7 @@
 package com.demo.trcuentas.controllers;
 
 import com.demo.trcuentas.application.MovimientoService;
+import com.demo.trcuentas.domain.dtos.ApiResponse; // <--- Importar
 import com.demo.trcuentas.domain.dtos.movimiento.requests.MovimientoRequest;
 import com.demo.trcuentas.domain.dtos.movimiento.responses.MovimientoResponse;
 import jakarta.validation.Valid;
@@ -13,15 +14,14 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/movements")
+@RequestMapping("api/v1/movements") // O "movimientos" según tu preferencia
 @RequiredArgsConstructor
 public class MovimientoController {
 
     private final MovimientoService movimientoService;
 
     @PostMapping
-    public ResponseEntity<MovimientoResponse> create(@RequestBody @Valid MovimientoRequest request) {
-
+    public ResponseEntity<ApiResponse<MovimientoResponse>> create(@RequestBody @Valid MovimientoRequest request) {
         MovimientoResponse response = movimientoService.create(request);
 
         URI location = ServletUriComponentsBuilder
@@ -30,35 +30,32 @@ public class MovimientoController {
                 .buildAndExpand(response.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(response);
+        return ResponseEntity.created(location)
+                .body(ApiResponse.success(response));
     }
 
     @GetMapping
-    public ResponseEntity<List<MovimientoResponse>> getAll() {
+    public ResponseEntity<ApiResponse<List<MovimientoResponse>>> getAll() {
         List<MovimientoResponse> response = movimientoService.getAll();
-        if (response.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(ApiResponse.success(response));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MovimientoResponse> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(movimientoService.getById(id));
+    public ResponseEntity<ApiResponse<MovimientoResponse>> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.success(movimientoService.getById(id)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         movimientoService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(ApiResponse.success(null));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovimientoResponse> update(
+    public ResponseEntity<ApiResponse<MovimientoResponse>> update(
             @PathVariable Long id,
             @RequestBody @Valid MovimientoRequest request) {
-
         MovimientoResponse updatedMovimiento = movimientoService.update(id, request);
-        return ResponseEntity.ok(updatedMovimiento);
+        return ResponseEntity.ok(ApiResponse.success(updatedMovimiento));
     }
 }

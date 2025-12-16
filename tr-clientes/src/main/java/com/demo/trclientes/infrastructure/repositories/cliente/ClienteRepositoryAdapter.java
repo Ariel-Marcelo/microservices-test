@@ -23,8 +23,7 @@ public class ClienteRepositoryAdapter implements ClienteRepositoryPort {
 
     @Override
     public List<Cliente> getAllActiveClients() {
-        var list =  jpaRepository.findByEstadoTrue();
-        return list;
+        return jpaRepository.findByEstadoTrue();
     }
 
     @Override

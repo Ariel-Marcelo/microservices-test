@@ -1,6 +1,7 @@
 package com.demo.trcuentas.controllers;
 
 import com.demo.trcuentas.application.ReporteService;
+import com.demo.trcuentas.domain.dtos.ApiResponse;
 import com.demo.trcuentas.domain.dtos.reporte.response.ReporteEstadoCuentaResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,7 +18,7 @@ public class ReporteController {
     private final ReporteService reporteService;
 
     @GetMapping("/{clienteId}")
-    public ResponseEntity<ReporteEstadoCuentaResponse> getReport(
+    public ResponseEntity<ApiResponse<ReporteEstadoCuentaResponse>> getReport(
             @PathVariable String clienteId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate
@@ -26,6 +27,8 @@ public class ReporteController {
             throw new IllegalArgumentException("La fecha de inicio no puede ser posterior a la fecha fin");
         }
 
-        return ResponseEntity.ok(reporteService.generarReporte(clienteId, startDate, endDate));
+        ReporteEstadoCuentaResponse reporte = reporteService.generarReporte(clienteId, startDate, endDate);
+
+        return ResponseEntity.ok(ApiResponse.success(reporte));
     }
 }

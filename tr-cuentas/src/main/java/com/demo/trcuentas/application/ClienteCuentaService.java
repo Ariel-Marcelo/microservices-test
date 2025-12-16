@@ -1,6 +1,6 @@
 package com.demo.trcuentas.application;
 
-import com.demo.trcuentas.domain.dtos.clienteCuenta.ClienteReplica;
+import com.demo.trcuentas.domain.dtos.clienteCuenta.ClienteRequest;
 import com.demo.trcuentas.domain.dtos.clienteCuenta.ClienteReplicaService;
 import com.demo.trcuentas.domain.models.ClienteCuenta;
 import com.demo.trcuentas.infrastructure.repositories.cliente.ClienteCuentaJpaRepository;
@@ -18,7 +18,7 @@ public class ClienteCuentaService implements ClienteReplicaService {
     private final ClienteCuentaJpaRepository repository;
 
     @Transactional
-    public void saveReplica(ClienteReplica dto) {
+    public void saveReplica(ClienteRequest dto) {
         log.info("REPLICA REST: Recibiendo creación/actualización para cliente ID: {}", dto.getId());
 
         ClienteCuenta cliente = new ClienteCuenta();
@@ -32,7 +32,7 @@ public class ClienteCuentaService implements ClienteReplicaService {
     }
 
     @Transactional
-    public void updateReplica(Long id, ClienteReplica dto) {
+    public void updateReplica(Long id, ClienteRequest dto) {
         log.info("REPLICA REST: Actualizando cliente ID: {}", id);
 
         ClienteCuenta cliente = repository.findById(id)

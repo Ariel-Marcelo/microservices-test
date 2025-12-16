@@ -42,20 +42,20 @@ public class ClienteService implements ClienteServicePort {
         ClienteMapper.INSTANCE.updateEntityFromRequest(clienteRequest, client);
         Cliente updatedClient = repository.save(client);
 
-        ClienteReplica replica = ClienteReplica.builder()
+        ClienteReplica clone = ClienteReplica.builder()
                 .id(updatedClient.getId())
                 .clienteId(updatedClient.getClienteId())
                 .nombre(updatedClient.getNombre())
                 .build();
-        cuentaRestClient.notifyUpdate(updatedClient.getId(), replica);
+        cuentaRestClient.notifyUpdate(updatedClient.getId(), clone);
         return ClienteMapper.INSTANCE.toResponse(updatedClient);
     }
 
     @Override
     public void delete(Long id) {
-        Cliente cliente = repository.getActiveClientById(id);
-        cliente.setEstado(false);
-        repository.save(cliente);
+        Cliente client = repository.getActiveClientById(id);
+        client.setEstado(false);
+        repository.save(client);
         cuentaRestClient.notifyDelete(id);
     }
 

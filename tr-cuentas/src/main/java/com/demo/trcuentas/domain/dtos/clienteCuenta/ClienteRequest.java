@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClienteReplica {
+public class ClienteRequest {
     private Long id;
     private String clienteId;
     private String nombre;

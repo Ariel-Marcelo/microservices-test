@@ -1,9 +1,9 @@
 package com.demo.trcuentas.domain.dtos.clienteCuenta;
 
 public interface ClienteReplicaService {
-    void saveReplica(ClienteReplica dto);
+    void saveReplica(ClienteRequest dto);
 
-    void updateReplica(Long id, ClienteReplica dto);
+    void updateReplica(Long id, ClienteRequest dto);
 
     void deleteReplica(Long id);
 }

@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "67b3804b-474a-4c6f-9d14-7b3bff3e9d7b",
-		"name": "Transacciones-collection",
+		"_postman_id": "2a948065-560b-4b52-b5e7-61a3a78ebeac",
+		"name": "Transacciones-collection Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "20179511"
 	},
@@ -30,7 +30,7 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "All",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -50,7 +50,7 @@
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "",
 							"header": [
 								{
 									"key": "Vary",
@@ -74,7 +74,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:08:20 GMT"
+									"value": "Tue, 16 Dec 2025 06:03:30 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -86,7 +86,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": 1,\n        \"clienteId\": \"ms-1234566397\",\n        \"nombre\": \"Marianela Montalvo \",\n        \"genero\": \"F\",\n        \"edad\": 58,\n        \"identificacion\": \"1234566397\",\n        \"direccion\": \"Olvidados\",\n        \"telefono\": \"0954678361\",\n        \"estado\": true\n    },\n    {\n        \"id\": 5,\n        \"clienteId\": \"ms-1334566397\",\n        \"nombre\": \"Marianela Montalvo \",\n        \"genero\": \"F\",\n        \"edad\": 58,\n        \"identificacion\": \"1334566397\",\n        \"direccion\": \"Olvidados\",\n        \"telefono\": \"0954678361\",\n        \"estado\": true\n    }\n]"
+							"body": "{\n    \"status\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"clienteId\": \"1431431\",\n            \"nombre\": \"Ruperto Lucio\",\n            \"genero\": \"M\",\n            \"edad\": 28,\n            \"identificacion\": \"1231231\",\n            \"direccion\": \"Nueva direccion\",\n            \"telefono\": \"0911111111\",\n            \"estado\": true\n        },\n        {\n            \"id\": 2,\n            \"clienteId\": \"7777777\",\n            \"nombre\": \"Luis Snadobal\",\n            \"genero\": \"M\",\n            \"edad\": 18,\n            \"identificacion\": \"66666666\",\n            \"direccion\": \"CASA\",\n            \"telefono\": \"0975436231\",\n            \"estado\": true\n        },\n        {\n            \"id\": 5,\n            \"clienteId\": \"7772777\",\n            \"nombre\": \"Luis Snadobal\",\n            \"genero\": \"M\",\n            \"edad\": 18,\n            \"identificacion\": \"66626666\",\n            \"direccion\": \"CASA\",\n            \"telefono\": \"0975436231\",\n            \"estado\": true\n        },\n        {\n            \"id\": 13,\n            \"clienteId\": \"1231231\",\n            \"nombre\": \"Rut Luciana\",\n            \"genero\": \"F\",\n            \"edad\": 28,\n            \"identificacion\": \"123132231\",\n            \"direccion\": \"Cruz Roja\",\n            \"telefono\": \"0975436231\",\n            \"estado\": true\n        }\n    ]\n}"
 						}
 					]
 				},
@@ -112,7 +112,7 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "View",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
@@ -133,7 +133,7 @@
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "",
 							"header": [
 								{
 									"key": "Vary",
@@ -157,7 +157,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:09:02 GMT"
+									"value": "Tue, 16 Dec 2025 06:03:54 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -169,7 +169,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 1,\n    \"clienteId\": \"ms-1234566397\",\n    \"nombre\": \"Marianela Montalvo \",\n    \"genero\": \"F\",\n    \"edad\": 58,\n    \"identificacion\": \"1234566397\",\n    \"direccion\": \"Olvidados\",\n    \"telefono\": \"0954678361\",\n    \"estado\": true\n}"
+							"body": "{\n    \"status\": true,\n    \"data\": {\n        \"id\": 1,\n        \"clienteId\": \"1431431\",\n        \"nombre\": \"Ruperto Lucio\",\n        \"genero\": \"M\",\n        \"edad\": 28,\n        \"identificacion\": \"1231231\",\n        \"direccion\": \"Nueva direccion\",\n        \"telefono\": \"0911111111\",\n        \"estado\": true\n    }\n}"
 						}
 					]
 				},
@@ -203,13 +203,13 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "Create",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": 6,\r\n  \"clienteId\": \"1231231\",\r\n  \"nombre\": \"Rut Luciana\",\r\n  \"genero\": \"F\",\r\n  \"edad\": 28,\r\n  \"identificacion\": \"1231231\",\r\n  \"direccion\": \"Cruz Roja\",\r\n  \"telefono\": \"0975436231\",\r\n  \"contrasenia\": \"1234\",\r\n  \"estado\": true\r\n}",
+									"raw": "{\r\n  \"clienteId\": \"123123231\",\r\n  \"nombre\": \"Rut Luciana\",\r\n  \"genero\": \"F\",\r\n  \"edad\": 28,\r\n  \"identificacion\": \"12313322231\",\r\n  \"direccion\": \"Cruz Roja\",\r\n  \"telefono\": \"0975436231\",\r\n  \"contrasenia\": \"1234\",\r\n  \"estado\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -232,7 +232,7 @@
 							},
 							"status": "Created",
 							"code": 201,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "",
 							"header": [
 								{
 									"key": "Vary",
@@ -256,7 +256,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:11:53 GMT"
+									"value": "Tue, 16 Dec 2025 06:04:20 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -268,7 +268,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 7,\n    \"clienteId\": \"1231231\",\n    \"nombre\": \"Rut Luciana\",\n    \"genero\": \"F\",\n    \"edad\": 28,\n    \"identificacion\": \"1231231\",\n    \"direccion\": \"Cruz Roja\",\n    \"telefono\": \"0975436231\",\n    \"estado\": true\n}"
+							"body": "{\n    \"status\": true,\n    \"data\": {\n        \"id\": 16,\n        \"clienteId\": \"123123231\",\n        \"nombre\": \"Rut Luciana\",\n        \"genero\": \"F\",\n        \"edad\": 28,\n        \"identificacion\": \"12313322231\",\n        \"direccion\": \"Cruz Roja\",\n        \"telefono\": \"0975436231\",\n        \"estado\": true\n    }\n}"
 						}
 					]
 				},
@@ -303,13 +303,13 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "Update",
 							"originalRequest": {
 								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"clienteId\": \"1231231\",\r\n    \"nombre\": \"Ruperto Lucio\",\r\n    \"genero\": \"M\",\r\n    \"edad\": 28,\r\n    \"identificacion\": \"1231231\",\r\n    \"direccion\": \"Nueva direccion\",\r\n    \"telefono\": \"0911111111\",\r\n    \"contrasenia\": \"nuevacontrasenia\",\r\n    \"estado\": true\r\n}",
+									"raw": "{\r\n    \"clienteId\": \"1431431\",\r\n    \"nombre\": \"Ruperto Lucio\",\r\n    \"genero\": \"M\",\r\n    \"edad\": 28,\r\n    \"identificacion\": \"1231231\",\r\n    \"direccion\": \"Nueva direccion\",\r\n    \"telefono\": \"0911111111\",\r\n    \"contrasenia\": \"nuevacontrasenia\",\r\n    \"estado\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -317,7 +317,7 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/clients/7",
+									"raw": "http://localhost:8080/api/v1/clients/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -327,13 +327,13 @@
 										"api",
 										"v1",
 										"clients",
-										"7"
+										"1"
 									]
 								}
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "",
 							"header": [
 								{
 									"key": "Vary",
@@ -357,7 +357,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:15:07 GMT"
+									"value": "Tue, 16 Dec 2025 06:04:39 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -369,7 +369,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 7,\n    \"clienteId\": \"1231231\",\n    \"nombre\": \"Ruperto Lucio\",\n    \"genero\": \"M\",\n    \"edad\": 28,\n    \"identificacion\": \"1231231\",\n    \"direccion\": \"Nueva direccion\",\n    \"telefono\": \"0911111111\",\n    \"estado\": true\n}"
+							"body": "{\n    \"status\": true,\n    \"data\": {\n        \"id\": 1,\n        \"clienteId\": \"1431431\",\n        \"nombre\": \"Ruperto Lucio\",\n        \"genero\": \"M\",\n        \"edad\": 28,\n        \"identificacion\": \"1231231\",\n        \"direccion\": \"Nueva direccion\",\n        \"telefono\": \"0911111111\",\n        \"estado\": true\n    }\n}"
 						}
 					]
 				},
@@ -395,12 +395,12 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "Delete",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/clients/7",
+									"raw": "http://localhost:8080/api/v1/clients/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -410,13 +410,13 @@
 										"api",
 										"v1",
 										"clients",
-										"7"
+										"1"
 									]
 								}
 							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": null,
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
 							"header": [
 								{
 									"key": "Vary",
@@ -431,8 +431,16 @@
 									"value": "Access-Control-Request-Headers"
 								},
 								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:16:02 GMT"
+									"value": "Tue, 16 Dec 2025 06:05:08 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -444,7 +452,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": "{\n    \"status\": true\n}"
 						}
 					]
 				}
@@ -459,12 +467,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/v1/accounts",
+							"raw": "http://localhost:8081/api/v1/accounts",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "8081",
 							"path": [
 								"api",
 								"v1",
@@ -474,17 +482,17 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "All",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/accounts",
+									"raw": "http://localhost:8081/api/v1/accounts",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8081",
 									"path": [
 										"api",
 										"v1",
@@ -494,20 +502,8 @@
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "",
 							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
 								{
 									"key": "Content-Type",
 									"value": "application/json"
@@ -518,7 +514,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:29:11 GMT"
+									"value": "Tue, 16 Dec 2025 06:05:31 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -530,7 +526,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": 4,\n        \"numeroCuenta\": \"111111111\",\n        \"tipoCuenta\": \"Corriente\",\n        \"saldoInicial\": 1000,\n        \"estado\": true,\n        \"clienteId\": \"5\",\n        \"nombreCliente\": \"Marianela Montalvo \"\n    },\n    {\n        \"id\": 3,\n        \"numeroCuenta\": \"125487\",\n        \"tipoCuenta\": \"Corriente\",\n        \"saldoInicial\": 550,\n        \"estado\": true,\n        \"clienteId\": \"1\",\n        \"nombreCliente\": \"Marianela Montalvo \"\n    }\n]"
+							"body": "{\n    \"status\": true,\n    \"data\": [\n        {\n            \"id\": 4,\n            \"numeroCuenta\": \"551231212\",\n            \"tipoCuenta\": \"Corriente\",\n            \"saldoInicial\": 0,\n            \"estado\": true,\n            \"clienteId\": null,\n            \"nombreCliente\": null\n        },\n        {\n            \"id\": 1,\n            \"numeroCuenta\": \"2312312\",\n            \"tipoCuenta\": \"Ahorro\",\n            \"saldoInicial\": 500,\n            \"estado\": true,\n            \"clienteId\": null,\n            \"nombreCliente\": null\n        }\n    ]\n}"
 						}
 					]
 				},
@@ -540,7 +536,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/api/v1/accounts/5",
+							"raw": "http://localhost:8081/api/v1/accounts/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -550,23 +546,23 @@
 								"api",
 								"v1",
 								"accounts",
-								"5"
+								"4"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "View",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/accounts/4",
+									"raw": "http://localhost:8081/api/v1/accounts/4",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8081",
 									"path": [
 										"api",
 										"v1",
@@ -577,20 +573,8 @@
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "",
 							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
 								{
 									"key": "Content-Type",
 									"value": "application/json"
@@ -601,7 +585,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:30:16 GMT"
+									"value": "Tue, 16 Dec 2025 06:05:58 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -613,7 +597,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 4,\n    \"numeroCuenta\": \"111111111\",\n    \"tipoCuenta\": \"Corriente\",\n    \"saldoInicial\": 1000,\n    \"estado\": true,\n    \"clienteId\": \"5\",\n    \"nombreCliente\": \"Marianela Montalvo \"\n}"
+							"body": "{\n    \"status\": true,\n    \"data\": {\n        \"id\": 4,\n        \"numeroCuenta\": \"551231212\",\n        \"tipoCuenta\": \"Corriente\",\n        \"saldoInicial\": 0,\n        \"estado\": true,\n        \"clienteId\": null,\n        \"nombreCliente\": null\n    }\n}"
 						}
 					]
 				},
@@ -647,13 +631,13 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "Create",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"numeroCuenta\": \"231231212\",\r\n  \"tipoCuenta\": \"Ahorro\",\r\n  \"saldoInicial\": 300,\r\n  \"estado\": true,\r\n  \"clienteId\": 1\r\n}",
+									"raw": "{\r\n  \"numeroCuenta\": \"2312212312\",\r\n  \"tipoCuenta\": \"Ahorro\",\r\n  \"saldoInicial\": 300,\r\n  \"estado\": true,\r\n  \"clienteId\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -661,12 +645,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/accounts",
+									"raw": "http://localhost:8081/api/v1/accounts",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8081",
 									"path": [
 										"api",
 										"v1",
@@ -676,23 +660,11 @@
 							},
 							"status": "Created",
 							"code": 201,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "",
 							"header": [
 								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
 									"key": "Location",
-									"value": "http://localhost:8080/api/v1/cuentas/6"
+									"value": "http://localhost:8081/api/v1/accounts/7"
 								},
 								{
 									"key": "Content-Type",
@@ -704,7 +676,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:31:52 GMT"
+									"value": "Tue, 16 Dec 2025 06:10:07 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -716,7 +688,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 6,\n    \"numeroCuenta\": \"231231212\",\n    \"tipoCuenta\": \"Ahorro\",\n    \"saldoInicial\": 300,\n    \"estado\": true,\n    \"clienteId\": \"1\",\n    \"nombreCliente\": \"Marianela Montalvo \"\n}"
+							"body": "{\n    \"status\": true,\n    \"data\": {\n        \"id\": 7,\n        \"numeroCuenta\": \"2312212312\",\n        \"tipoCuenta\": \"Ahorro\",\n        \"saldoInicial\": 300,\n        \"estado\": true,\n        \"clienteId\": null,\n        \"nombreCliente\": null\n    }\n}"
 						}
 					]
 				},
@@ -751,7 +723,7 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "Update",
 							"originalRequest": {
 								"method": "PUT",
 								"header": [],
@@ -765,36 +737,24 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/accounts/6",
+									"raw": "http://localhost:8081/api/v1/accounts/1",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8081",
 									"path": [
 										"api",
 										"v1",
 										"accounts",
-										"6"
+										"1"
 									]
 								}
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "",
 							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
 								{
 									"key": "Content-Type",
 									"value": "application/json"
@@ -805,7 +765,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:33:49 GMT"
+									"value": "Tue, 16 Dec 2025 06:10:20 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -817,7 +777,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 6,\n    \"numeroCuenta\": \"2312312\",\n    \"tipoCuenta\": \"Ahorro\",\n    \"saldoInicial\": 500,\n    \"estado\": true,\n    \"clienteId\": \"1\",\n    \"nombreCliente\": \"Marianela Montalvo \"\n}"
+							"body": "{\n    \"status\": true,\n    \"data\": {\n        \"id\": 1,\n        \"numeroCuenta\": \"2312312\",\n        \"tipoCuenta\": \"Ahorro\",\n        \"saldoInicial\": 500,\n        \"estado\": true,\n        \"clienteId\": null,\n        \"nombreCliente\": null\n    }\n}"
 						}
 					]
 				},
@@ -841,7 +801,52 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Delete",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/v1/accounts/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"accounts",
+										"3"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 16 Dec 2025 06:10:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Error interno del servidor: Cuenta no encontrado o inactiva con ID: 3\"\n}"
+						}
+					]
 				}
 			]
 		},
@@ -869,40 +874,28 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "All",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/movimientos",
+									"raw": "http://localhost:8081/api/v1/movements",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8081",
 									"path": [
 										"api",
 										"v1",
-										"movimientos"
+										"movements"
 									]
 								}
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "",
 							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
 								{
 									"key": "Content-Type",
 									"value": "application/json"
@@ -913,7 +906,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:35:46 GMT"
+									"value": "Tue, 16 Dec 2025 06:10:53 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -925,7 +918,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": 5,\n        \"numeroCuenta\": \"125487\",\n        \"tipoCuenta\": \"Corriente\",\n        \"fecha\": \"2025-12-07T21:44:51.852884\",\n        \"estado\": true,\n        \"tipoMovimiento\": \"Retiro\",\n        \"valor\": -100,\n        \"saldo\": 50\n    },\n    {\n        \"id\": 7,\n        \"numeroCuenta\": \"125487\",\n        \"tipoCuenta\": \"Corriente\",\n        \"fecha\": \"2025-12-07T21:55:49.439855\",\n        \"estado\": true,\n        \"tipoMovimiento\": \"Retiro\",\n        \"valor\": -100,\n        \"saldo\": 50\n    },\n    {\n        \"id\": 6,\n        \"numeroCuenta\": \"125487\",\n        \"tipoCuenta\": \"Corriente\",\n        \"fecha\": \"2025-12-07T21:45:47.334905\",\n        \"estado\": true,\n        \"tipoMovimiento\": \"Reversado\",\n        \"valor\": 100,\n        \"saldo\": 150\n    },\n    {\n        \"id\": 8,\n        \"numeroCuenta\": \"125487\",\n        \"tipoCuenta\": \"Corriente\",\n        \"fecha\": \"2025-12-07T22:17:25.779655\",\n        \"estado\": true,\n        \"tipoMovimiento\": \"Deposito\",\n        \"valor\": 500,\n        \"saldo\": 550\n    },\n    {\n        \"id\": 10,\n        \"numeroCuenta\": \"111111111\",\n        \"tipoCuenta\": \"Corriente\",\n        \"fecha\": \"2025-12-07T22:19:15.673478\",\n        \"estado\": true,\n        \"tipoMovimiento\": \"Deposito\",\n        \"valor\": 1000,\n        \"saldo\": 1000\n    },\n    {\n        \"id\": 11,\n        \"numeroCuenta\": \"125487\",\n        \"tipoCuenta\": \"Corriente\",\n        \"fecha\": \"2025-12-07T23:01:23.490293\",\n        \"estado\": true,\n        \"tipoMovimiento\": \"Deposito\",\n        \"valor\": 200,\n        \"saldo\": 550\n    },\n    {\n        \"id\": 9,\n        \"numeroCuenta\": \"125487\",\n        \"tipoCuenta\": \"Corriente\",\n        \"fecha\": \"2025-12-07T22:18:19.426832\",\n        \"estado\": true,\n        \"tipoMovimiento\": \"Reversado\",\n        \"valor\": -200,\n        \"saldo\": 350\n    },\n    {\n        \"id\": 12,\n        \"numeroCuenta\": \"2312312\",\n        \"tipoCuenta\": \"Ahorro\",\n        \"fecha\": \"2025-12-08T19:31:52.276196\",\n        \"estado\": true,\n        \"tipoMovimiento\": \"Deposito\",\n        \"valor\": 300,\n        \"saldo\": 300\n    },\n    {\n        \"id\": 13,\n        \"numeroCuenta\": \"2312312\",\n        \"tipoCuenta\": \"Ahorro\",\n        \"fecha\": \"2025-12-08T19:33:49.544282\",\n        \"estado\": true,\n        \"tipoMovimiento\": \"Deposito\",\n        \"valor\": 200,\n        \"saldo\": 500\n    }\n]"
+							"body": "{\n    \"status\": true,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"numeroCuenta\": \"2312312\",\n            \"tipoCuenta\": \"Ahorro\",\n            \"fecha\": \"2025-12-14T21:56:17.626752\",\n            \"estado\": true,\n            \"tipoMovimiento\": \"Deposito\",\n            \"valor\": 300,\n            \"saldo\": 300\n        },\n        {\n            \"id\": 2,\n            \"numeroCuenta\": \"2312312\",\n            \"tipoCuenta\": \"Ahorro\",\n            \"fecha\": \"2025-12-14T22:06:13.763001\",\n            \"estado\": true,\n            \"tipoMovimiento\": \"Deposito\",\n            \"valor\": 200,\n            \"saldo\": 500\n        },\n        {\n            \"id\": 4,\n            \"numeroCuenta\": \"2312312\",\n            \"tipoCuenta\": \"Ahorro\",\n            \"fecha\": \"2025-12-14T22:24:57.070854\",\n            \"estado\": true,\n            \"tipoMovimiento\": \"Deposito\",\n            \"valor\": 10,\n            \"saldo\": 500\n        },\n        {\n            \"id\": 3,\n            \"numeroCuenta\": \"2312312\",\n            \"tipoCuenta\": \"Ahorro\",\n            \"fecha\": \"2025-12-14T22:23:31.009696\",\n            \"estado\": true,\n            \"tipoMovimiento\": \"Reversado\",\n            \"valor\": -10,\n            \"saldo\": 490\n        },\n        {\n            \"id\": 5,\n            \"numeroCuenta\": \"2312312\",\n            \"tipoCuenta\": \"Ahorro\",\n            \"fecha\": \"2025-12-15T00:58:26.012867\",\n            \"estado\": true,\n            \"tipoMovimiento\": \"Credito\",\n            \"valor\": 25000,\n            \"saldo\": 25500\n        },\n        {\n            \"id\": 7,\n            \"numeroCuenta\": \"2312312\",\n            \"tipoCuenta\": \"Ahorro\",\n            \"fecha\": \"2025-12-15T00:59:17.262841\",\n            \"estado\": true,\n            \"tipoMovimiento\": \"Credito\",\n            \"valor\": 500,\n            \"saldo\": 25500\n        },\n        {\n            \"id\": 6,\n            \"numeroCuenta\": \"2312312\",\n            \"tipoCuenta\": \"Ahorro\",\n            \"fecha\": \"2025-12-15T00:58:49.099692\",\n            \"estado\": true,\n            \"tipoMovimiento\": \"Reversado\",\n            \"valor\": -500,\n            \"saldo\": 25000\n        },\n        {\n            \"id\": 8,\n            \"numeroCuenta\": \"2312312\",\n            \"tipoCuenta\": \"Ahorro\",\n            \"fecha\": \"2025-12-16T00:11:49.356573\",\n            \"estado\": true,\n            \"tipoMovimiento\": \"Debito\",\n            \"valor\": -25000,\n            \"saldo\": 500\n        },\n        {\n            \"id\": 9,\n            \"numeroCuenta\": \"2312212312\",\n            \"tipoCuenta\": \"Ahorro\",\n            \"fecha\": \"2025-12-16T01:10:07.570627\",\n            \"estado\": true,\n            \"tipoMovimiento\": \"Credito\",\n            \"valor\": 300,\n            \"saldo\": 300\n        }\n    ]\n}"
 						}
 					]
 				},
@@ -951,41 +944,29 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "View",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/movements/7",
+									"raw": "http://localhost:8081/api/v1/movements/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8081",
 									"path": [
 										"api",
 										"v1",
 										"movements",
-										"7"
+										"3"
 									]
 								}
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "",
 							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
 								{
 									"key": "Content-Type",
 									"value": "application/json"
@@ -996,7 +977,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:36:22 GMT"
+									"value": "Tue, 16 Dec 2025 06:11:14 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -1008,7 +989,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 7,\n    \"numeroCuenta\": \"125487\",\n    \"tipoCuenta\": \"Corriente\",\n    \"fecha\": \"2025-12-07T21:55:49.439855\",\n    \"estado\": true,\n    \"tipoMovimiento\": \"Retiro\",\n    \"valor\": -100,\n    \"saldo\": 50\n}"
+							"body": "{\n    \"status\": true,\n    \"data\": {\n        \"id\": 3,\n        \"numeroCuenta\": \"2312312\",\n        \"tipoCuenta\": \"Ahorro\",\n        \"fecha\": \"2025-12-14T22:23:31.009696\",\n        \"estado\": true,\n        \"tipoMovimiento\": \"Reversado\",\n        \"valor\": -10,\n        \"saldo\": 490\n    }\n}"
 						}
 					]
 				},
@@ -1042,78 +1023,6 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"numeroCuenta\": \"125487\",\r\n  \"tipoMovimiento\": \"Deposito\",\r\n  \"valor\": 25\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:8080/api/v1/movements",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8080",
-									"path": [
-										"api",
-										"v1",
-										"movements"
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": null,
-							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
-								{
-									"key": "Location",
-									"value": "http://localhost:8080/api/v1/movimientos/14"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Transfer-Encoding",
-									"value": "chunked"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:38:05 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"id\": 14,\n    \"numeroCuenta\": \"125487\",\n    \"tipoCuenta\": \"Corriente\",\n    \"fecha\": \"2025-12-08T19:38:05.233146\",\n    \"estado\": true,\n    \"tipoMovimiento\": \"Deposito\",\n    \"valor\": 25,\n    \"saldo\": 575\n}"
-						},
-						{
 							"name": "Create",
 							"originalRequest": {
 								"method": "POST",
@@ -1141,29 +1050,37 @@
 									]
 								}
 							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": null,
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
 							"header": [
 								{
-									"key": "Content-Type",
-									"value": "text/plain;charset=UTF-8"
+									"key": "Location",
+									"value": "http://localhost:8081/api/v1/movements/10"
 								},
 								{
-									"key": "Content-Length",
-									"value": "19"
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
 								},
 								{
 									"key": "Date",
-									"value": "Mon, 15 Dec 2025 05:44:27 GMT"
+									"value": "Tue, 16 Dec 2025 06:11:32 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
 								},
 								{
 									"key": "Connection",
-									"value": "close"
+									"value": "keep-alive"
 								}
 							],
 							"cookie": [],
-							"body": "Saldo no disponible"
+							"body": "{\n    \"status\": true,\n    \"data\": {\n        \"id\": 10,\n        \"numeroCuenta\": \"2312312\",\n        \"tipoCuenta\": \"Ahorro\",\n        \"fecha\": \"2025-12-16T01:11:32.4219179\",\n        \"estado\": true,\n        \"tipoMovimiento\": \"Retiro\",\n        \"valor\": 250000,\n        \"saldo\": 250500\n    }\n}"
 						}
 					]
 				},
@@ -1198,13 +1115,13 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "Update",
 							"originalRequest": {
 								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"numeroCuenta\": \"125487\",\r\n  \"tipoMovimiento\": \"Deposito\",\r\n  \"valor\": 5\r\n}",
+									"raw": "{\r\n  \"numeroCuenta\": \"2312312\",\r\n  \"tipoMovimiento\": \"Retiro\",\r\n  \"valor\": 10\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1212,36 +1129,24 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8080/api/v1/movements/14",
+									"raw": "http://localhost:8081/api/v1/movements/3",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8081",
 									"path": [
 										"api",
 										"v1",
 										"movements",
-										"14"
+										"3"
 									]
 								}
 							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": null,
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "",
 							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
 								{
 									"key": "Content-Type",
 									"value": "application/json"
@@ -1252,7 +1157,60 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 01:35:04 GMT"
+									"value": "Tue, 16 Dec 2025 06:11:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Parámetros Inválidos: Solo se permite editar el último movimiento de la cuenta para mantener la consistencia del saldo histórico.\"\n}"
+						},
+						{
+							"name": "Update",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"numeroCuenta\": \"2312312\",\r\n  \"tipoMovimiento\": \"Retiro\",\r\n  \"valor\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8081/api/v1/movements/10",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"v1",
+										"movements",
+										"10"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 16 Dec 2025 06:13:09 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -1264,7 +1222,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 14,\n    \"numeroCuenta\": \"125487\",\n    \"tipoCuenta\": \"Corriente\",\n    \"fecha\": \"2025-12-08T20:35:04.5967348\",\n    \"estado\": true,\n    \"tipoMovimiento\": \"Deposito\",\n    \"valor\": 5,\n    \"saldo\": 355\n}"
+							"body": "{\n    \"status\": true,\n    \"data\": {\n        \"id\": 10,\n        \"numeroCuenta\": \"2312312\",\n        \"tipoCuenta\": \"Ahorro\",\n        \"fecha\": \"2025-12-16T01:13:09.1778088\",\n        \"estado\": true,\n        \"tipoMovimiento\": \"Retiro\",\n        \"valor\": 10,\n        \"saldo\": 510\n    }\n}"
 						}
 					]
 				},
@@ -1288,54 +1246,7 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "New Request",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "http://localhost:8081/api/v1/movements/3",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"api",
-										"v1",
-										"movements",
-										"3"
-									]
-								}
-							},
-							"status": "No Content",
-							"code": 204,
-							"_postman_previewlanguage": "",
-							"header": [
-								{
-									"key": "Date",
-									"value": "Mon, 15 Dec 2025 03:24:57 GMT"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=60"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								}
-							],
-							"cookie": [
-								{
-									"expires": "Invalid Date",
-									"domain": "",
-									"path": ""
-								}
-							],
-							"body": ""
-						}
-					]
+					"response": []
 				}
 			]
 		},
@@ -1374,54 +1285,39 @@
 					},
 					"response": [
 						{
-							"name": "New Request",
+							"name": "report",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/api/v1/reportes?clienteId=ms-1234566397&fechaInicio=2025-12-01&fechaFin=2025-12-09",
+									"raw": "http://localhost:8081/api/v1/reports/1431431?startDate=2025-12-01&endDate=2025-12-14",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "8080",
+									"port": "8081",
 									"path": [
 										"api",
 										"v1",
-										"reportes"
+										"reports",
+										"1431431"
 									],
 									"query": [
 										{
-											"key": "clienteId",
-											"value": "ms-1234566397"
-										},
-										{
-											"key": "fechaInicio",
+											"key": "startDate",
 											"value": "2025-12-01"
 										},
 										{
-											"key": "fechaFin",
-											"value": "2025-12-09"
+											"key": "endDate",
+											"value": "2025-12-14"
 										}
 									]
 								}
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "",
 							"header": [
-								{
-									"key": "Vary",
-									"value": "Origin"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Method"
-								},
-								{
-									"key": "Vary",
-									"value": "Access-Control-Request-Headers"
-								},
 								{
 									"key": "Content-Type",
 									"value": "application/json"
@@ -1432,7 +1328,7 @@
 								},
 								{
 									"key": "Date",
-									"value": "Tue, 09 Dec 2025 00:49:33 GMT"
+									"value": "Tue, 16 Dec 2025 06:13:34 GMT"
 								},
 								{
 									"key": "Keep-Alive",
@@ -1444,7 +1340,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"clienteId\": \"ms-1234566397\",\n    \"nombreCliente\": \"Marianela Montalvo \",\n    \"rangoFechasSolicitado\": \"2025-12-01 a 2025-12-09\",\n    \"cuentas\": [\n        {\n            \"numeroCuenta\": \"2312312\",\n            \"tipoCuenta\": \"Ahorro\",\n            \"saldoActual\": 500,\n            \"estado\": true,\n            \"movimientos\": [\n                {\n                    \"id\": 13,\n                    \"fecha\": \"2025-12-08T19:33:49.544282\",\n                    \"tipoMovimiento\": \"Deposito\",\n                    \"valor\": 200,\n                    \"saldo\": 500\n                },\n                {\n                    \"id\": 12,\n                    \"fecha\": \"2025-12-08T19:31:52.276196\",\n                    \"tipoMovimiento\": \"Deposito\",\n                    \"valor\": 300,\n                    \"saldo\": 300\n                }\n            ]\n        },\n        {\n            \"numeroCuenta\": \"125487\",\n            \"tipoCuenta\": \"Corriente\",\n            \"saldoActual\": 575,\n            \"estado\": true,\n            \"movimientos\": [\n                {\n                    \"id\": 14,\n                    \"fecha\": \"2025-12-08T19:38:05.233146\",\n                    \"tipoMovimiento\": \"Deposito\",\n                    \"valor\": 25,\n                    \"saldo\": 575\n                },\n                {\n                    \"id\": 11,\n                    \"fecha\": \"2025-12-07T23:01:23.490293\",\n                    \"tipoMovimiento\": \"Deposito\",\n                    \"valor\": 200,\n                    \"saldo\": 550\n                },\n                {\n                    \"id\": 9,\n                    \"fecha\": \"2025-12-07T22:18:19.426832\",\n                    \"tipoMovimiento\": \"Reversado\",\n                    \"valor\": -200,\n                    \"saldo\": 350\n                },\n                {\n                    \"id\": 8,\n                    \"fecha\": \"2025-12-07T22:17:25.779655\",\n                    \"tipoMovimiento\": \"Deposito\",\n                    \"valor\": 500,\n                    \"saldo\": 550\n                },\n                {\n                    \"id\": 7,\n                    \"fecha\": \"2025-12-07T21:55:49.439855\",\n                    \"tipoMovimiento\": \"Retiro\",\n                    \"valor\": -100,\n                    \"saldo\": 50\n                },\n                {\n                    \"id\": 6,\n                    \"fecha\": \"2025-12-07T21:45:47.334905\",\n                    \"tipoMovimiento\": \"Reversado\",\n                    \"valor\": 100,\n                    \"saldo\": 150\n                },\n                {\n                    \"id\": 5,\n                    \"fecha\": \"2025-12-07T21:44:51.852884\",\n                    \"tipoMovimiento\": \"Retiro\",\n                    \"valor\": -100,\n                    \"saldo\": 50\n                }\n            ]\n        }\n    ]\n}"
+							"body": "{\n    \"status\": true,\n    \"data\": {\n        \"clienteId\": \"1431431\",\n        \"nombreCliente\": \"Ruperto Lucio\",\n        \"rangoFechasSolicitado\": \"2025-12-01 a 2025-12-14\",\n        \"cuentas\": [\n            {\n                \"numeroCuenta\": \"551231212\",\n                \"tipoCuenta\": \"Corriente\",\n                \"saldoActual\": 0,\n                \"estado\": true,\n                \"movimientos\": []\n            },\n            {\n                \"numeroCuenta\": \"2312212312\",\n                \"tipoCuenta\": \"Ahorro\",\n                \"saldoActual\": 300,\n                \"estado\": true,\n                \"movimientos\": []\n            },\n            {\n                \"numeroCuenta\": \"2312312\",\n                \"tipoCuenta\": \"Ahorro\",\n                \"saldoActual\": 510,\n                \"estado\": true,\n                \"movimientos\": [\n                    {\n                        \"id\": 4,\n                        \"fecha\": \"2025-12-14T22:24:57.070854\",\n                        \"tipoMovimiento\": \"Deposito\",\n                        \"valor\": 10,\n                        \"saldo\": 500\n                    },\n                    {\n                        \"id\": 3,\n                        \"fecha\": \"2025-12-14T22:23:31.009696\",\n                        \"tipoMovimiento\": \"Reversado\",\n                        \"valor\": -10,\n                        \"saldo\": 490\n                    },\n                    {\n                        \"id\": 2,\n                        \"fecha\": \"2025-12-14T22:06:13.763001\",\n                        \"tipoMovimiento\": \"Deposito\",\n                        \"valor\": 200,\n                        \"saldo\": 500\n                    },\n                    {\n                        \"id\": 1,\n                        \"fecha\": \"2025-12-14T21:56:17.626752\",\n                        \"tipoMovimiento\": \"Deposito\",\n                        \"valor\": 300,\n                        \"saldo\": 300\n                    }\n                ]\n            }\n        ]\n    }\n}"
 						}
 					]
 				}
