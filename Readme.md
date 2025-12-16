@@ -33,9 +33,11 @@ docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 
 ## Ejecución con Maven
 
+Se puede correr cada microservicio desde su directorio raíz
+
 ```bash
 ## Correr Solución
-mvn spring-boot:run
+mvn org.springframework.boot:spring-boot-maven-plugin:run
 
 ## Correr Pruebas
 mvn test
