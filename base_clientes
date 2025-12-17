@@ -1,0 +1,140 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict 07SWXwrcn2Xv2gcd2Yx0rftbYMBxKDSd0RzUH40lmfMmgTl5Ket8bzUU29WaANI
+
+-- Dumped from database version 17.6
+-- Dumped by pg_dump version 17.6
+
+-- Started on 2025-12-16 20:09:11
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 218 (class 1259 OID 24789)
+-- Name: clientes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.clientes (
+    id bigint NOT NULL,
+    direccion character varying(255),
+    edad integer NOT NULL,
+    genero character varying(255),
+    identificacion character varying(255),
+    nombre character varying(255),
+    telefono character varying(255),
+    cliente_id character varying(255) NOT NULL,
+    contrasenia character varying(255),
+    estado boolean NOT NULL
+);
+
+
+ALTER TABLE public.clientes OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 24788)
+-- Name: clientes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.clientes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.clientes_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 4901 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: clientes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.clientes_id_seq OWNED BY public.clientes.id;
+
+
+--
+-- TOC entry 4742 (class 2604 OID 24792)
+-- Name: clientes id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes ALTER COLUMN id SET DEFAULT nextval('public.clientes_id_seq'::regclass);
+
+
+--
+-- TOC entry 4895 (class 0 OID 24789)
+-- Dependencies: 218
+-- Data for Name: clientes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.clientes (id, direccion, edad, genero, identificacion, nombre, telefono, cliente_id, contrasenia, estado) FROM stdin;
+2	CASA	18	M	66666666	Luis Snadobal	0975436231	7777777	1234	t
+5	CASA	18	M	66626666	Luis Snadobal	0975436231	7772777	1234	t
+8	CASA	78	F	9999993333	Luis NO AREQUICO	0975436231	22555552	1234	f
+13	Cruz Roja	28	F	123132231	Rut Luciana	0975436231	1231231	1234	t
+16	Cruz Roja	28	F	12313322231	Rut Luciana	0975436231	123123231	1234	t
+1	Nueva direccion	28	M	1231231	Ruperto Lucio	0911111111	1431431	nuevacontrasenia	f
+\.
+
+
+--
+-- TOC entry 4902 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: clientes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.clientes_id_seq', 16, true);
+
+
+--
+-- TOC entry 4744 (class 2606 OID 24796)
+-- Name: clientes clientes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT clientes_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4746 (class 2606 OID 24798)
+-- Name: clientes uk_mvqpaay4xno9pnlalro0awadi; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT uk_mvqpaay4xno9pnlalro0awadi UNIQUE (identificacion);
+
+
+--
+-- TOC entry 4748 (class 2606 OID 24800)
+-- Name: clientes uk_nhdbltv7dnhp65s6wjb411goq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.clientes
+    ADD CONSTRAINT uk_nhdbltv7dnhp65s6wjb411goq UNIQUE (cliente_id);
+
+
+-- Completed on 2025-12-16 20:09:12
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict 07SWXwrcn2Xv2gcd2Yx0rftbYMBxKDSd0RzUH40lmfMmgTl5Ket8bzUU29WaANI
+
