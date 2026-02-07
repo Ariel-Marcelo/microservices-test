@@ -1,0 +1,220 @@
+openapi: 3.0.3
+info:
+  title: API de Clientes
+  description: Microservicio para la gestión de clientes en el sistema de transacciones.
+  version: 1.0.0
+servers:
+  - url: /api/v1
+    description: Servidor local
+
+paths:
+  /clients:
+    post:
+      summary: Crear un nuevo cliente
+      operationId: createClient
+      tags:
+        - Clientes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteRequest'
+      responses:
+        '201':
+          description: Cliente creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCliente'
+        '400':
+          description: Datos de entrada inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+
+    get:
+      summary: Obtener todos los clientes
+      operationId: getAllClients
+      tags:
+        - Clientes
+      responses:
+        '200':
+          description: Listado de clientes devuelto exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseListCliente'
+
+  /clients/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      summary: Obtener un cliente por su ID
+      operationId: getClientById
+      tags:
+        - Clientes
+      responses:
+        '200':
+          description: Cliente encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCliente'
+        '404':
+          description: Cliente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+
+    put:
+      summary: Actualizar un cliente existente
+      operationId: updateClient
+      tags:
+        - Clientes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteRequest'
+      responses:
+        '200':
+          description: Cliente actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCliente'
+        '404':
+          description: Cliente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+
+    delete:
+      summary: Eliminar un cliente (eliminación lógica)
+      operationId: deleteClient
+      tags:
+        - Clientes
+      responses:
+        '200':
+          description: Cliente eliminado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+        '404':
+          description: Cliente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseError'
+
+components:
+  schemas:
+    ClienteRequest:
+      type: object
+      required:
+        - nombre
+        - identificacion
+        - clienteId
+        - contrasenia
+      properties:
+        nombre:
+          type: string
+          description: Nombre completo del cliente
+        genero:
+          type: string
+        edad:
+          type: integer
+          minimum: 18
+        identificacion:
+          type: string
+          description: Número de identificación único
+        direccion:
+          type: string
+        telefono:
+          type: string
+          pattern: '^[0-9]{10}$|^$'
+        clienteId:
+          type: string
+        contrasenia:
+          type: string
+        estado:
+          type: boolean
+          default: true
+
+    ClienteResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        clienteId:
+          type: string
+        nombre:
+          type: string
+        genero:
+          type: string
+        edad:
+          type: integer
+        identificacion:
+          type: string
+        direccion:
+          type: string
+        telefono:
+          type: string
+        estado:
+          type: boolean
+
+    ApiResponseBase:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+
+    ApiResponseCliente:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ClienteResponse'
+
+    ApiResponseListCliente:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/ClienteResponse'
+
+    ApiResponseVoid:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              nullable: true
+
+    ApiResponseError:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: object
+              nullable: true

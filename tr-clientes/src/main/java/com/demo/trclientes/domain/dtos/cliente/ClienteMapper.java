@@ -1,7 +1,7 @@
 package com.demo.trclientes.domain.dtos.cliente;
 
-import com.demo.trclientes.domain.dtos.cliente.requests.ClienteRequest;
-import com.demo.trclientes.domain.dtos.cliente.responses.ClienteResponse;
+import com.demo.trclientes.domain.dtos.generated.ClienteRequest;
+import com.demo.trclientes.domain.dtos.generated.ClienteResponse;
 import com.demo.trclientes.domain.models.Cliente;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
@@ -12,7 +12,7 @@ public interface ClienteMapper {
     ClienteMapper INSTANCE = Mappers.getMapper(ClienteMapper.class);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "estado", defaultValue = "true")
+    @Mapping(target = "estado", source = "estado", defaultValue = "true")
     @Mapping(source = "clienteId", target = "clienteId")
     Cliente toEntity(ClienteRequest request);
 

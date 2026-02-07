@@ -41,7 +41,7 @@ public class MovimientoService implements MovimientoServicePort {
         BigDecimal currentAmount = cuenta.getSaldoInicial();
         BigDecimal lastAmount;
 
-        if ("Debito".equalsIgnoreCase(request.getTipoMovimiento())) {
+            if ("Debito".equalsIgnoreCase(request.getTipoMovimiento())) {
             movementValue = movementValue.negate();
             lastAmount = currentAmount.add(movementValue);
             log.debug("Cálculo Débito: Saldo inicial {} + Movimiento {} = Nuevo Saldo {}", currentAmount, movementValue, lastAmount);
