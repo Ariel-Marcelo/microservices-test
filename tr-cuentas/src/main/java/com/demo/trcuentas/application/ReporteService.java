@@ -9,7 +9,7 @@ import com.demo.trcuentas.domain.reporte.response.ReporteMovimiento;
 import com.demo.trcuentas.domain.models.ClienteCuenta;
 import com.demo.trcuentas.domain.models.Cuenta;
 import com.demo.trcuentas.domain.models.Movimiento;
-import com.demo.trcuentas.infrastructure.adapters.out.repositories.cliente.ClienteCuentaJpaRepository;
+import com.demo.trcuentas.infrastructure.adapters.out.persistence.cliente.ClienteCuentaJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,13 +1,13 @@
 package com.demo.trclientes.application;
 
-import com.demo.trclientes.domain.dtos.cliente.ClienteMapper;
-import com.demo.trclientes.domain.dtos.cliente.ClienteRepositoryPort;
-import com.demo.trclientes.domain.dtos.cliente.ClienteServicePort;
-import com.demo.trclientes.domain.dtos.cliente.replica.ClienteReplica;
+import com.demo.trclientes.infrastructure.adapters.in.mappers.cliente.ClienteMapper;
+import com.demo.trclientes.domain.cliente.ports.ClienteRepositoryPort;
+import com.demo.trclientes.domain.cliente.ports.ClienteServicePort;
+import com.demo.trclientes.domain.cliente.replica.ClienteReplica;
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.ClienteRequest;
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.ClienteResponse;
-import com.demo.trclientes.domain.models.Cliente;
-import com.demo.trclientes.infrastructure.repositories.cliente.api.CuentaRestClient;
+import com.demo.trclientes.infrastructure.adapters.out.persistence.models.Cliente;
+import com.demo.trclientes.infrastructure.adapters.out.external.cliente.CuentaRestClient;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
