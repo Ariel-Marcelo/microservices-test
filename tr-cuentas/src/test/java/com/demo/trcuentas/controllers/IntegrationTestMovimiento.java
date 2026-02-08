@@ -1,10 +1,10 @@
 package com.demo.trcuentas.controllers;
 
-import com.demo.trcuentas.domain.dtos.cuenta.CuentaRepositoryPort;
-import com.demo.trcuentas.domain.dtos.movimiento.requests.MovimientoRequest;
+import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
+import com.demo.trcuentas.domain.movimiento.requests.MovimientoRequest;
 import com.demo.trcuentas.domain.models.ClienteCuenta;
 import com.demo.trcuentas.domain.models.Cuenta;
-import com.demo.trcuentas.infrastructure.repositories.cliente.ClienteCuentaJpaRepository;
+import com.demo.trcuentas.infrastructure.adapters.out.repositories.cliente.ClienteCuentaJpaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

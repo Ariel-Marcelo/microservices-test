@@ -1,6 +1,6 @@
 package com.demo.trcuentas.infrastructure;
 
-import com.demo.trcuentas.domain.dtos.ApiResponse;
+import com.demo.trcuentas.domain.ApiResponse;
 import com.demo.trcuentas.domain.exceptions.LowBalanceException;
 import com.demo.trcuentas.domain.exceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;

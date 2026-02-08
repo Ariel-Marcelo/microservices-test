@@ -1,15 +1,15 @@
 package com.demo.trcuentas.application;
 
-import com.demo.trcuentas.domain.dtos.cuenta.CuentaMapper;
-import com.demo.trcuentas.domain.dtos.cuenta.CuentaRepositoryPort;
-import com.demo.trcuentas.domain.dtos.cuenta.CuentaServicePort;
-import com.demo.trcuentas.domain.dtos.cuenta.requests.CuentaRequest;
-import com.demo.trcuentas.domain.dtos.cuenta.responses.CuentaResponse;
-import com.demo.trcuentas.domain.dtos.movimiento.MovimientoRepositoryPort;
+import com.demo.trcuentas.domain.cuenta.CuentaMapper;
+import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
+import com.demo.trcuentas.domain.cuenta.CuentaServicePort;
+import com.demo.trcuentas.domain.cuenta.requests.CuentaRequest;
+import com.demo.trcuentas.domain.cuenta.responses.CuentaResponse;
+import com.demo.trcuentas.domain.movimiento.MovimientoRepositoryPort;
 import com.demo.trcuentas.domain.models.ClienteCuenta;
 import com.demo.trcuentas.domain.models.Cuenta;
 import com.demo.trcuentas.domain.models.Movimiento;
-import com.demo.trcuentas.infrastructure.repositories.cliente.ClienteCuentaJpaRepository;
+import com.demo.trcuentas.infrastructure.adapters.out.repositories.cliente.ClienteCuentaJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

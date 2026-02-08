@@ -1,9 +1,9 @@
 package com.demo.trcuentas.application;
 
-import com.demo.trcuentas.domain.dtos.cuenta.CuentaRepositoryPort;
-import com.demo.trcuentas.domain.dtos.movimiento.MovimientoRepositoryPort;
-import com.demo.trcuentas.domain.dtos.movimiento.requests.MovimientoRequest;
-import com.demo.trcuentas.domain.dtos.movimiento.responses.MovimientoResponse;
+import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
+import com.demo.trcuentas.domain.movimiento.MovimientoRepositoryPort;
+import com.demo.trcuentas.domain.movimiento.requests.MovimientoRequest;
+import com.demo.trcuentas.domain.movimiento.responses.MovimientoResponse;
 import com.demo.trcuentas.domain.exceptions.LowBalanceException;
 import com.demo.trcuentas.domain.models.Cuenta;
 import com.demo.trcuentas.domain.models.Movimiento;

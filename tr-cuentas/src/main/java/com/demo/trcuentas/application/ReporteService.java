@@ -1,15 +1,15 @@
 package com.demo.trcuentas.application;
 
-import com.demo.trcuentas.domain.dtos.cuenta.CuentaRepositoryPort;
-import com.demo.trcuentas.domain.dtos.movimiento.MovimientoRepositoryPort;
-import com.demo.trcuentas.domain.dtos.reporte.ReporteMapper;
-import com.demo.trcuentas.domain.dtos.reporte.response.ReporteCuenta;
-import com.demo.trcuentas.domain.dtos.reporte.response.ReporteEstadoCuentaResponse;
-import com.demo.trcuentas.domain.dtos.reporte.response.ReporteMovimiento;
+import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
+import com.demo.trcuentas.domain.movimiento.MovimientoRepositoryPort;
+import com.demo.trcuentas.domain.reporte.ReporteMapper;
+import com.demo.trcuentas.domain.reporte.response.ReporteCuenta;
+import com.demo.trcuentas.domain.reporte.response.ReporteEstadoCuentaResponse;
+import com.demo.trcuentas.domain.reporte.response.ReporteMovimiento;
 import com.demo.trcuentas.domain.models.ClienteCuenta;
 import com.demo.trcuentas.domain.models.Cuenta;
 import com.demo.trcuentas.domain.models.Movimiento;
-import com.demo.trcuentas.infrastructure.repositories.cliente.ClienteCuentaJpaRepository;
+import com.demo.trcuentas.infrastructure.adapters.out.repositories.cliente.ClienteCuentaJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
