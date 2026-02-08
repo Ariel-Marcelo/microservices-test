@@ -1,6 +1,6 @@
 package com.demo.trcuentas.infrastructure.adapters.out.persistence.cuenta;
 
-import com.demo.trcuentas.domain.models.Cuenta;
+import com.demo.trcuentas.infrastructure.adapters.out.models.Cuenta;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

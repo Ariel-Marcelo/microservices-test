@@ -1,8 +1,6 @@
 package com.demo.trclientes.infrastructure.adapters.in.exceptions;
 
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.ApiResponseError;
-import com.demo.trclientes.domain.exceptions.LowBalanceException;
-import com.demo.trclientes.domain.exceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

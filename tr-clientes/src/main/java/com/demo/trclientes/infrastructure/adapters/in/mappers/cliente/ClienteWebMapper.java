@@ -1,24 +1,22 @@
 package com.demo.trclientes.infrastructure.adapters.in.mappers.cliente;
 
+import com.demo.trclientes.domain.cliente.models.Client;
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.ClienteRequest;
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.ClienteResponse;
-import com.demo.trclientes.infrastructure.adapters.out.persistence.models.Cliente;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface ClienteMapper {
+public interface ClienteWebMapper {
 
-    ClienteMapper INSTANCE = Mappers.getMapper(ClienteMapper.class);
+    ClienteWebMapper INSTANCE = Mappers.getMapper(ClienteWebMapper.class);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "estado", source = "estado", defaultValue = "true")
-    @Mapping(source = "clienteId", target = "clienteId")
-    Cliente toEntity(ClienteRequest request);
+    Client toDomain(ClienteRequest request);
 
-    ClienteResponse toResponse(Cliente cliente);
+    ClienteResponse toResponse(Client client);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
-    void updateEntityFromRequest(ClienteRequest request, @MappingTarget Cliente entity);
+    void updateDomainFromRequest(ClienteRequest request, @MappingTarget Client domain);
 }

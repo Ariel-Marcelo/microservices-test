@@ -2,7 +2,7 @@ package com.demo.trcuentas.domain.movimiento;
 
 import com.demo.trcuentas.domain.movimiento.requests.MovimientoRequest;
 import com.demo.trcuentas.domain.movimiento.responses.MovimientoResponse;
-import com.demo.trcuentas.domain.models.Movimiento;
+import com.demo.trcuentas.infrastructure.adapters.out.models.Movimiento;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

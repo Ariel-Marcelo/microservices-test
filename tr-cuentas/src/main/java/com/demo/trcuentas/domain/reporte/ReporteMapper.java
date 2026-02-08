@@ -2,8 +2,8 @@ package com.demo.trcuentas.domain.reporte;
 
 import com.demo.trcuentas.domain.reporte.response.ReporteCuenta;
 import com.demo.trcuentas.domain.reporte.response.ReporteMovimiento;
-import com.demo.trcuentas.domain.models.Cuenta;
-import com.demo.trcuentas.domain.models.Movimiento;
+import com.demo.trcuentas.infrastructure.adapters.out.models.Cuenta;
+import com.demo.trcuentas.infrastructure.adapters.out.models.Movimiento;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

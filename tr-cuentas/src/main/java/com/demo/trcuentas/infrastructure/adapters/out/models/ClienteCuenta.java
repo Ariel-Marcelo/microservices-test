@@ -1,4 +1,4 @@
-package com.demo.trcuentas.domain.models;
+package com.demo.trcuentas.infrastructure.adapters.out.models;
 
 
 import jakarta.persistence.*;

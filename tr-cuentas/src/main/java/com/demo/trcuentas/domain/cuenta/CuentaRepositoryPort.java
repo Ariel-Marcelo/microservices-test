@@ -1,6 +1,6 @@
 package com.demo.trcuentas.domain.cuenta;
 
-import com.demo.trcuentas.domain.models.Cuenta;
+import com.demo.trcuentas.infrastructure.adapters.out.models.Cuenta;
 
 import java.util.List;
 

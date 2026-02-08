@@ -1,4 +1,4 @@
-package com.demo.trclientes.domain.cliente.replica;
+package com.demo.trclientes.infrastructure.adapters.out.external.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

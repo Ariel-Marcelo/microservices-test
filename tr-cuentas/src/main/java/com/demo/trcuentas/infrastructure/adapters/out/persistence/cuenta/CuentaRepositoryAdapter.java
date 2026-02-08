@@ -1,7 +1,7 @@
 package com.demo.trcuentas.infrastructure.adapters.out.persistence.cuenta;
 
 import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
-import com.demo.trcuentas.domain.models.Cuenta;
+import com.demo.trcuentas.infrastructure.adapters.out.models.Cuenta;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

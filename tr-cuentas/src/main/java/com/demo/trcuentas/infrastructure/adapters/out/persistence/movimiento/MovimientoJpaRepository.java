@@ -1,6 +1,6 @@
 package com.demo.trcuentas.infrastructure.adapters.out.persistence.movimiento;
 
-import com.demo.trcuentas.domain.models.Movimiento;
+import com.demo.trcuentas.infrastructure.adapters.out.models.Movimiento;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

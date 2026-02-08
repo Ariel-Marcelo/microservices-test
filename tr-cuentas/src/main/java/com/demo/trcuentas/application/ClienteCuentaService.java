@@ -2,7 +2,7 @@ package com.demo.trcuentas.application;
 
 import com.demo.trcuentas.domain.clienteCuenta.ClienteRequest;
 import com.demo.trcuentas.domain.clienteCuenta.ClienteReplicaService;
-import com.demo.trcuentas.domain.models.ClienteCuenta;
+import com.demo.trcuentas.infrastructure.adapters.out.models.ClienteCuenta;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.cliente.ClienteCuentaJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

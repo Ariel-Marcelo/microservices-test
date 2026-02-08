@@ -1,6 +1,9 @@
-package com.demo.trclientes.infrastructure.adapters.out.external.cliente;
+package com.demo.trclientes.infrastructure.adapters.out.external.cliente.adapter;
 
-import com.demo.trclientes.domain.cliente.replica.ClienteReplica;
+import com.demo.trclientes.domain.cliente.ports.ClienteExternalServicePort;
+import com.demo.trclientes.domain.cliente.models.Client;
+import com.demo.trclientes.infrastructure.adapters.out.external.cliente.mappers.ClienteExternalMapper;
+import com.demo.trclientes.infrastructure.adapters.out.external.dtos.ClienteReplica;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,15 +13,18 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CuentaRestClient {
+public class CuentaRestAdapter implements ClienteExternalServicePort {
 
     private final RestTemplate restTemplate;
+    private final ClienteExternalMapper mapper;
 
     @Value("${tr-cuentas.url}")
     private String urlAccountService;
 
-    public void notifyCreate(ClienteReplica dto) {
+    @Override
+    public void notifyCreate(Client client) {
         try {
+            ClienteReplica dto = mapper.toReplica(client);
             restTemplate.postForEntity(urlAccountService, dto, Void.class);
             log.info("Sincronización exitosa con Cuentas para ID: {}", dto.getClienteId());
         } catch (Exception e) {
@@ -27,8 +33,10 @@ public class CuentaRestClient {
         }
     }
 
-    public void notifyUpdate(Long id, ClienteReplica dto) {
+    @Override
+    public void notifyUpdate(Long id, Client client) {
         try {
+            ClienteReplica dto = mapper.toReplica(client);
             String url = urlAccountService + "/" + id;
             restTemplate.put(url, dto);
             log.info("Actualización REST exitosa para ID: {}", id);
@@ -38,6 +46,7 @@ public class CuentaRestClient {
         }
     }
 
+    @Override
     public void notifyDelete(Long id) {
         try {
             String url = urlAccountService + "/" + id;

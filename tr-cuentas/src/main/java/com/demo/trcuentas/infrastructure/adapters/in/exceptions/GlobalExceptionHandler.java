@@ -1,4 +1,4 @@
-package com.demo.trcuentas.infrastructure.adapters.in;
+package com.demo.trcuentas.infrastructure.adapters.in.exceptions;
 
 import com.demo.trcuentas.domain.ApiResponse;
 import com.demo.trcuentas.domain.exceptions.LowBalanceException;

@@ -1,4 +1,4 @@
-package com.demo.trclientes.domain.exceptions;
+package com.demo.trclientes.infrastructure.adapters.in.exceptions;
 
 public class
 LowBalanceException extends RuntimeException{
