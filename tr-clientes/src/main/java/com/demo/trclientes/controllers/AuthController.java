@@ -1,9 +1,9 @@
 package com.demo.trclientes.controllers;
 
 import com.demo.trclientes.config.SecurityConfig;
-import com.demo.trclientes.domain.dtos.generated.OAuthTokenResponse;
-import com.demo.trclientes.domain.dtos.generated.UserInfoResponse;
-import com.demo.trclientes.infrastructure.api.AuthApi;
+import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.OAuthTokenResponse;
+import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.UserInfoResponse;
+import com.demo.trclientes.infrastructure.adapters.in.rest.api.AuthApi;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

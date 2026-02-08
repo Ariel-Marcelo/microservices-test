@@ -1,8 +1,8 @@
 package com.demo.trclientes.controllers;
 
 import com.demo.trclientes.domain.dtos.cliente.ClienteServicePort;
-import com.demo.trclientes.domain.dtos.generated.*;
-import com.demo.trclientes.infrastructure.api.ClientesApi;
+import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.*;
+import com.demo.trclientes.infrastructure.adapters.in.rest.api.ClientesApi;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

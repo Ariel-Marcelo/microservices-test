@@ -1,7 +1,7 @@
 package com.demo.trclientes.domain.dtos.cliente;
 
-import com.demo.trclientes.domain.dtos.generated.ClienteRequest;
-import com.demo.trclientes.domain.dtos.generated.ClienteResponse;
+import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.ClienteRequest;
+import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.ClienteResponse;
 
 import java.util.List;
 

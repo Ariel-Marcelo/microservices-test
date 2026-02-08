@@ -1,6 +1,6 @@
 package com.demo.trclientes.infrastructure;
 
-import com.demo.trclientes.domain.dtos.generated.ApiResponseError;
+import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.ApiResponseError;
 import com.demo.trclientes.domain.exceptions.LowBalanceException;
 import com.demo.trclientes.domain.exceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;

@@ -129,8 +129,8 @@
 						<configuration>
 							<inputSpec>${project.basedir}/src/main/resources/api/openapi.yaml</inputSpec>
 							<generatorName>spring</generatorName>
-							<apiPackage>com.demo.trclientes.infrastructure.api</apiPackage>
-							<modelPackage>com.demo.trclientes.domain.dtos.generated</modelPackage>
+							<apiPackage>com.demo.trclientes.infrastructure.adapters.in.rest.api</apiPackage>
+							<modelPackage>com.demo.trclientes.infrastructure.adapters.in.rest.dtos</modelPackage>
 							<supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
 							<configOptions>
 								<interfaceOnly>true</interfaceOnly>
