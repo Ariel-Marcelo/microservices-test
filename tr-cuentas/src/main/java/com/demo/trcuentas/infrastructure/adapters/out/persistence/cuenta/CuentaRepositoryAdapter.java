@@ -27,7 +27,6 @@ public class CuentaRepositoryAdapter implements CuentaRepositoryPort {
         Cuenta entity = jpaRepository.findById(domain.getId() != null ? domain.getId() : -1L)
                 .orElse(cuentaMapper.toEntity(domain));
         
-        // Update basic fields if updating
         if (domain.getId() != null) {
             entity.setNumeroCuenta(domain.getNumeroCuenta());
             entity.setTipoCuenta(domain.getTipoCuenta());
@@ -35,7 +34,6 @@ public class CuentaRepositoryAdapter implements CuentaRepositoryPort {
             entity.setEstado(domain.getEstado());
         }
 
-        // Handle the relationship with Cliente
         if (domain.getClienteId() != null) {
             ClienteCuenta cliente = clienteRepository.findById(domain.getClienteId())
                     .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado con ID: " + domain.getClienteId()));

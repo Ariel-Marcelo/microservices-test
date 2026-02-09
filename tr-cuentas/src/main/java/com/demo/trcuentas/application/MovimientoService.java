@@ -4,9 +4,9 @@ import com.demo.trcuentas.domain.cuenta.CuentaDomain;
 import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
 import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
 import com.demo.trcuentas.domain.movimiento.MovimientoRepositoryPort;
-import com.demo.trcuentas.domain.movimiento.MovimientoRequestDomain;
 import com.demo.trcuentas.domain.movimiento.MovimientoServicePort;
-import com.demo.trcuentas.infrastructure.adapters.in.exceptions.LowBalanceException;
+import com.demo.trcuentas.domain.movimiento.MovimientoStrategy;
+import com.demo.trcuentas.domain.movimiento.MovimientoStrategyFactory;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,42 +25,31 @@ public class MovimientoService implements MovimientoServicePort {
 
     private final CuentaRepositoryPort cuentaRepository;
     private final MovimientoRepositoryPort movimientoRepository;
+    private final MovimientoStrategyFactory strategyFactory;
 
     @Override
-    public MovimientoDomain create(MovimientoRequestDomain request) {
-        log.info("INICIO TX CREATE: Procesando {} de {} en cuenta {}.", request.getTipoMovimiento(), request.getValor(), request.getNumeroCuenta());
+    public MovimientoDomain create(MovimientoDomain domain) {
+        log.info("INICIO TX CREATE: Procesando {} de {} en cuenta {}.", 
+                domain.getTipoMovimiento(), domain.getValor(), domain.getCuentaId());
 
-        CuentaDomain cuenta = cuentaRepository
-                .findActiveCuentasByNumeroId(request.getNumeroCuenta());
+        CuentaDomain cuenta = cuentaRepository.getActiveCuentasById(domain.getCuentaId());
         
-        BigDecimal movementValue = request.getValor();
-        BigDecimal currentAmount = cuenta.getSaldoInicial();
-        BigDecimal lastAmount;
+        MovimientoStrategy strategy = strategyFactory.getStrategy(domain.getTipoMovimiento());
+        BigDecimal nuevoSaldo = strategy.calcularNuevoSaldo(cuenta.getSaldoInicial(), domain.getValor());
 
-        if ("Debito".equalsIgnoreCase(request.getTipoMovimiento())) {
-            movementValue = movementValue.negate();
-            lastAmount = currentAmount.add(movementValue);
+        BigDecimal valorFinal = "Debito".equalsIgnoreCase(domain.getTipoMovimiento())
+                ? domain.getValor().negate() 
+                : domain.getValor();
 
-            if (lastAmount.compareTo(BigDecimal.ZERO) < 0) {
-                log.warn("FALLO CREATE: Saldo insuficiente. Intento de débito resultaría en saldo negativo: {}", lastAmount);
-                throw new LowBalanceException("Saldo no disponible");
-            }
-        } else {
-            lastAmount = currentAmount.add(movementValue);
-        }
+        domain.setFecha(LocalDateTime.now());
+        domain.setValor(valorFinal);
+        domain.setSaldo(nuevoSaldo);
+        domain.setCuentaId(cuenta.getId());
 
-        MovimientoDomain movimiento = MovimientoDomain.builder()
-                .fecha(LocalDateTime.now())
-                .tipoMovimiento(request.getTipoMovimiento())
-                .valor(movementValue)
-                .saldo(lastAmount)
-                .cuentaId(cuenta.getId())
-                .build();
-
-        cuenta.setSaldoInicial(lastAmount);
+        cuenta.setSaldoInicial(nuevoSaldo);
         cuentaRepository.save(cuenta);
 
-        return movimientoRepository.save(movimiento);
+        return movimientoRepository.save(domain);
     }
 
     @Override
@@ -75,86 +64,72 @@ public class MovimientoService implements MovimientoServicePort {
 
     @Override
     public void delete(Long id) {
-        log.warn("INICIO TX REVERSO: Solicitud de reversión para Movimiento ID: {}", id);
+        log.warn("INICIO TX REVERSO: Movimiento ID: {}", id);
         
-        MovimientoDomain originalMovement = movimientoRepository.getMovimientosById(id);
-        CuentaDomain cuenta = cuentaRepository.getActiveCuentasById(originalMovement.getCuentaId());
+        MovimientoDomain original = movimientoRepository.getMovimientosById(id);
+        CuentaDomain cuenta = cuentaRepository.getActiveCuentasById(original.getCuentaId());
         
         String nuevoTipo;
-        if ("Debito".equalsIgnoreCase(originalMovement.getTipoMovimiento())) {
+        if ("Debito".equalsIgnoreCase(original.getTipoMovimiento()) || original.getValor().compareTo(BigDecimal.ZERO) < 0) {
             nuevoTipo = "Credito";
-        } else if ("Credito".equalsIgnoreCase(originalMovement.getTipoMovimiento())) {
+        } else if ("Credito".equalsIgnoreCase(original.getTipoMovimiento()) || original.getValor().compareTo(BigDecimal.ZERO) > 0) {
             nuevoTipo = "Debito";
         } else {
-            throw new IllegalArgumentException("No puede reversar una transacción que ya ha sido reversada");
+            throw new IllegalArgumentException("No puede reversar esta transacción");
         }
 
-        BigDecimal balanceValue = originalMovement.getValor().negate();
-        BigDecimal oldMovementValue = cuenta.getSaldoInicial().add(balanceValue);
+        BigDecimal valorReverso = original.getValor().negate();
+        BigDecimal nuevoSaldo = cuenta.getSaldoInicial().add(valorReverso);
         
-        if (oldMovementValue.compareTo(BigDecimal.ZERO) < 0) {
-            throw new LowBalanceException("Saldo insuficiente");
-        }
+        MovimientoStrategy strategy = strategyFactory.getStrategy(nuevoTipo);
+        BigDecimal saldoFinal = strategy.calcularNuevoSaldo(cuenta.getSaldoInicial(), valorReverso.abs());
 
-        MovimientoDomain balanceMovement = MovimientoDomain.builder()
+        MovimientoDomain reverso = MovimientoDomain.builder()
                 .fecha(LocalDateTime.now())
                 .tipoMovimiento(nuevoTipo)
-                .valor(balanceValue)
-                .saldo(oldMovementValue)
+                .valor(valorReverso)
+                .saldo(saldoFinal)
                 .cuentaId(cuenta.getId())
                 .build();
 
-        cuenta.setSaldoInicial(oldMovementValue);
+        cuenta.setSaldoInicial(saldoFinal);
         cuentaRepository.save(cuenta);
-        originalMovement.setTipoMovimiento("Reversado");
-        movimientoRepository.save(originalMovement);
-        movimientoRepository.save(balanceMovement);
+        
+        original.setTipoMovimiento("Reversado");
+        movimientoRepository.save(original);
+        movimientoRepository.save(reverso);
     }
 
     @Override
-    public MovimientoDomain update(Long id, MovimientoRequestDomain request) {
-        log.warn("INICIO TX UPDATE: Solicitud de actualización para Movimiento ID: {} con nuevo valor {}", id, request.getValor());
+    public MovimientoDomain update(Long id, MovimientoDomain domain) {
+        log.warn("INICIO TX UPDATE: Movimiento ID: {}", id);
         
-        MovimientoDomain originalMovement = movimientoRepository.getMovimientosById(id);
-        Long cuentaId = originalMovement.getCuentaId();
+        MovimientoDomain original = movimientoRepository.getMovimientosById(id);
         
-        MovimientoDomain ultimoMovimiento = movimientoRepository.findLastByCuentaId(cuentaId)
-                .orElseThrow(() -> new EntityNotFoundException("No se encontraron movimientos para validar."));
+        MovimientoDomain ultimo = movimientoRepository.findLastByCuentaId(original.getCuentaId())
+                .orElseThrow(() -> new EntityNotFoundException("No se encontraron movimientos."));
 
-        if (!originalMovement.getId().equals(ultimoMovimiento.getId())) {
-            throw new IllegalArgumentException("Solo se permite editar el último movimiento de la cuenta para mantener la consistencia del saldo histórico.");
-        }
-        
-        if ("Reversado".equalsIgnoreCase(originalMovement.getTipoMovimiento())) {
-            throw new IllegalArgumentException("No se puede editar un movimiento que ya ha sido reversada.");
+        if (!original.getId().equals(ultimo.getId())) {
+            throw new IllegalArgumentException("Solo se permite editar el último movimiento.");
         }
 
-        if (!originalMovement.getTipoMovimiento().equalsIgnoreCase(request.getTipoMovimiento())) {
-            throw new IllegalArgumentException("No se permite cambiar el tipo de movimiento. Solo se puede ajustar el valor.");
-        }
+        CuentaDomain cuenta = cuentaRepository.getActiveCuentasById(original.getCuentaId());
+        BigDecimal saldoBase = cuenta.getSaldoInicial().subtract(original.getValor());
 
-        CuentaDomain cuenta = cuentaRepository.getActiveCuentasById(cuentaId);
-        
-        BigDecimal saldoSinMovimientoPrevio = cuenta.getSaldoInicial().subtract(originalMovement.getValor());
+        MovimientoStrategy strategy = strategyFactory.getStrategy(domain.getTipoMovimiento());
+        BigDecimal nuevoSaldo = strategy.calcularNuevoSaldo(saldoBase, domain.getValor());
 
-        BigDecimal nuevoValor = request.getValor();
-        if ("Debito".equalsIgnoreCase(request.getTipoMovimiento())) {
-            nuevoValor = nuevoValor.negate();
-        }
+        BigDecimal nuevoValor = "Debito".equalsIgnoreCase(domain.getTipoMovimiento()) 
+                ? domain.getValor().negate() 
+                : domain.getValor();
 
-        BigDecimal nuevoSaldoFinal = saldoSinMovimientoPrevio.add(nuevoValor);
-
-        if (nuevoSaldoFinal.compareTo(BigDecimal.ZERO) < 0) {
-            throw new LowBalanceException("Saldo insuficiente para realizar esta actualización.");
-        }
-
-        cuenta.setSaldoInicial(nuevoSaldoFinal);
+        cuenta.setSaldoInicial(nuevoSaldo);
         cuentaRepository.save(cuenta);
 
-        originalMovement.setFecha(LocalDateTime.now());
-        originalMovement.setValor(nuevoValor);
-        originalMovement.setSaldo(nuevoSaldoFinal);
+        original.setFecha(LocalDateTime.now());
+        original.setValor(nuevoValor);
+        original.setSaldo(nuevoSaldo);
 
-        return movimientoRepository.save(originalMovement);
+        return movimientoRepository.save(original);
     }
 }

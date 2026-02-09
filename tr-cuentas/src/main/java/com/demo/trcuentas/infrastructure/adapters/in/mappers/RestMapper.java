@@ -11,7 +11,6 @@ import com.demo.trcuentas.domain.dtos.ReporteMovimiento;
 import com.demo.trcuentas.domain.clienteCuenta.ClienteDomain;
 import com.demo.trcuentas.domain.cuenta.CuentaDomain;
 import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
-import com.demo.trcuentas.domain.movimiento.MovimientoRequestDomain;
 import com.demo.trcuentas.domain.reporte.CuentaReporte;
 import com.demo.trcuentas.domain.reporte.EstadoCuentaReporte;
 import com.demo.trcuentas.domain.reporte.MovimientoReporte;
@@ -35,7 +34,11 @@ public interface RestMapper {
     CuentaResponse toRest(CuentaDomain domain);
 
     // Movimiento mappings
-    MovimientoRequestDomain toDomain(MovimientoRequest request);
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "fecha", ignore = true)
+    @Mapping(target = "saldo", ignore = true)
+    @Mapping(target = "cuentaId", ignore = true) // El controlador debe buscar el ID por numeroCuenta
+    MovimientoDomain toDomain(MovimientoRequest request);
     MovimientoResponse toRest(MovimientoDomain domain);
 
     // Cliente mappings

@@ -1,12 +1,14 @@
 package com.demo.trcuentas.infrastructure.adapters.in.controllers;
 
 import com.demo.trcuentas.application.MovimientoService;
+import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.api.MovementsApi;
 import com.demo.trcuentas.domain.dtos.ApiResponseListMovimientoResponse;
 import com.demo.trcuentas.domain.dtos.ApiResponseMovimientoResponse;
 import com.demo.trcuentas.domain.dtos.ApiResponseVoid;
 import com.demo.trcuentas.domain.dtos.MovimientoRequest;
 import com.demo.trcuentas.domain.dtos.MovimientoResponse;
+import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
 import com.demo.trcuentas.infrastructure.adapters.in.mappers.RestMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,13 +27,19 @@ import java.util.stream.Collectors;
 public class MovimientoRestController implements MovementsApi {
 
     private final MovimientoService movimientoService;
+    private final CuentaRepositoryPort cuentaRepository; // Necesario para resolver el ID de cuenta
     private final RestMapper restMapper;
 
     @Override
     public ResponseEntity<ApiResponseMovimientoResponse> createMovement(MovimientoRequest movimientoRequest) {
         log.info("INICIO PETICIÓN (OpenAPI): [POST /api/v1/movements]");
-        var domainRequest = restMapper.toDomain(movimientoRequest);
-        var domainResponse = movimientoService.create(domainRequest);
+        
+        var cuenta = cuentaRepository.findActiveCuentasByNumeroId(movimientoRequest.getNumeroCuenta());
+        
+        MovimientoDomain domain = restMapper.toDomain(movimientoRequest);
+        domain.setCuentaId(cuenta.getId());
+
+        var domainResponse = movimientoService.create(domain);
         var restResponse = restMapper.toRest(domainResponse);
 
         ApiResponseMovimientoResponse response = new ApiResponseMovimientoResponse();
@@ -82,8 +90,14 @@ public class MovimientoRestController implements MovementsApi {
     @Override
     public ResponseEntity<ApiResponseMovimientoResponse> updateMovement(Long id, MovimientoRequest movimientoRequest) {
         log.info("INICIO PETICIÓN (OpenAPI): [PUT /api/v1/movements/{}]", id);
-        var domainRequest = restMapper.toDomain(movimientoRequest);
-        var domainResponse = movimientoService.update(id, domainRequest);
+        
+        // Buscamos la cuenta para asegurar que el ID es correcto en el dominio
+        var cuenta = cuentaRepository.findActiveCuentasByNumeroId(movimientoRequest.getNumeroCuenta());
+        
+        MovimientoDomain domain = restMapper.toDomain(movimientoRequest);
+        domain.setCuentaId(cuenta.getId());
+
+        var domainResponse = movimientoService.update(id, domain);
         var restResponse = restMapper.toRest(domainResponse);
 
         ApiResponseMovimientoResponse response = new ApiResponseMovimientoResponse();
