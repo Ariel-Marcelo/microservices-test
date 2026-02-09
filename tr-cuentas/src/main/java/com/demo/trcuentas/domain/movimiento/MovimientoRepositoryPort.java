@@ -1,6 +1,6 @@
 package com.demo.trcuentas.domain.movimiento;
 
-import com.demo.trcuentas.infrastructure.adapters.out.models.Movimiento;
+import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Movimiento;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

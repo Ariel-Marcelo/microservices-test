@@ -1,13 +1,15 @@
 package com.demo.trcuentas.domain.movimiento;
 
-import com.demo.trcuentas.domain.movimiento.requests.MovimientoRequest;
-import com.demo.trcuentas.domain.movimiento.responses.MovimientoResponse;
-import com.demo.trcuentas.infrastructure.adapters.out.models.Movimiento;
+import com.demo.trcuentas.domain.dtos.MovimientoRequest;
+import com.demo.trcuentas.domain.dtos.MovimientoResponse;
+import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Movimiento;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 @Mapper(componentModel = "spring", imports = {LocalDateTime.class})
 public interface MovimientoMapper {
@@ -24,4 +26,11 @@ public interface MovimientoMapper {
     @Mapping(source = "cuenta.tipoCuenta", target = "tipoCuenta")
     @Mapping(source = "cuenta.estado", target = "estado")
     MovimientoResponse toResponse(Movimiento movimiento);
+
+    default OffsetDateTime map(LocalDateTime value) {
+        if (value == null) {
+            return null;
+        }
+        return value.atOffset(ZoneOffset.UTC);
+    }
 }

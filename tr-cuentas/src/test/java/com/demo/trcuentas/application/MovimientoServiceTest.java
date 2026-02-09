@@ -2,11 +2,11 @@ package com.demo.trcuentas.application;
 
 import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
 import com.demo.trcuentas.domain.movimiento.MovimientoRepositoryPort;
-import com.demo.trcuentas.domain.movimiento.requests.MovimientoRequest;
-import com.demo.trcuentas.domain.movimiento.responses.MovimientoResponse;
-import com.demo.trcuentas.domain.exceptions.LowBalanceException;
-import com.demo.trcuentas.infrastructure.adapters.out.models.Cuenta;
-import com.demo.trcuentas.infrastructure.adapters.out.models.Movimiento;
+import com.demo.trcuentas.domain.dtos.MovimientoRequest;
+import com.demo.trcuentas.domain.dtos.MovimientoResponse;
+import com.demo.trcuentas.infrastructure.adapters.in.exceptions.LowBalanceException;
+import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Cuenta;
+import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Movimiento;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

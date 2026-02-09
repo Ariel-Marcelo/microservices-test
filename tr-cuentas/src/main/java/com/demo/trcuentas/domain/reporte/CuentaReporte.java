@@ -1,15 +1,16 @@
-package com.demo.trcuentas.domain.reporte.response;
+package com.demo.trcuentas.domain.reporte;
 
+import lombok.Builder;
 import lombok.Data;
-
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-public class ReporteCuenta {
+@Builder
+public class CuentaReporte {
     private String numeroCuenta;
     private String tipoCuenta;
     private BigDecimal saldoActual;
-    private boolean estado;
-    private List<ReporteMovimiento> movimientos;
+    private Boolean estado;
+    private List<MovimientoReporte> movimientos;
 }

@@ -1,8 +1,8 @@
 package com.demo.trcuentas.domain.cuenta;
 
-import com.demo.trcuentas.domain.cuenta.requests.CuentaRequest;
-import com.demo.trcuentas.domain.cuenta.responses.CuentaResponse;
-import com.demo.trcuentas.infrastructure.adapters.out.models.Cuenta;
+import com.demo.trcuentas.domain.dtos.CuentaRequest;
+import com.demo.trcuentas.domain.dtos.CuentaResponse;
+import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Cuenta;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 

@@ -1,7 +1,7 @@
 package com.demo.trcuentas.domain.cuenta;
 
-import com.demo.trcuentas.domain.cuenta.responses.CuentaResponse;
-import com.demo.trcuentas.domain.cuenta.requests.CuentaRequest;
+import com.demo.trcuentas.domain.dtos.CuentaResponse;
+import com.demo.trcuentas.domain.dtos.CuentaRequest;
 
 import java.util.List;
 

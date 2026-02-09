@@ -1,9 +1,9 @@
 package com.demo.trcuentas.controllers;
 
 import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
-import com.demo.trcuentas.domain.movimiento.requests.MovimientoRequest;
-import com.demo.trcuentas.infrastructure.adapters.out.models.ClienteCuenta;
-import com.demo.trcuentas.infrastructure.adapters.out.models.Cuenta;
+import com.demo.trcuentas.domain.dtos.MovimientoRequest;
+import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.ClienteCuenta;
+import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Cuenta;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.cliente.ClienteCuentaJpaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Transactional
-class IntegrationTestMovimiento {
+class MovimientoIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -78,9 +78,9 @@ class IntegrationTestMovimiento {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.saldo").value(150.00))
-                .andExpect(jsonPath("$.valor").value(50.00))
-                .andExpect(jsonPath("$.tipoMovimiento").value("Credito"));
+                .andExpect(jsonPath("$.data.saldo").value(150.00))
+                .andExpect(jsonPath("$.data.valor").value(50.00))
+                .andExpect(jsonPath("$.data.tipoMovimiento").value("Credito"));
 
         Cuenta cuentaActualizada = cuentaRepository.findActiveCuentasByNumeroId(CUENTA_NUMERO);
 

@@ -1,7 +1,7 @@
 package com.demo.trcuentas.infrastructure.adapters.out.persistence.movimiento;
 
 import com.demo.trcuentas.domain.movimiento.MovimientoRepositoryPort;
-import com.demo.trcuentas.infrastructure.adapters.out.models.Movimiento;
+import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Movimiento;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

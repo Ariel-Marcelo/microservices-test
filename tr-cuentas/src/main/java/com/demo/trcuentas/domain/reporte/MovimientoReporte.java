@@ -1,13 +1,13 @@
-package com.demo.trcuentas.domain.reporte.response;
+package com.demo.trcuentas.domain.reporte;
 
-
+import lombok.Builder;
 import lombok.Data;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class ReporteMovimiento {
+@Builder
+public class MovimientoReporte {
     private Long id;
     private LocalDateTime fecha;
     private String tipoMovimiento;

@@ -1,7 +1,7 @@
 package com.demo.trcuentas.domain.movimiento;
 
-import com.demo.trcuentas.domain.movimiento.requests.MovimientoRequest;
-import com.demo.trcuentas.domain.movimiento.responses.MovimientoResponse;
+import com.demo.trcuentas.domain.dtos.MovimientoRequest;
+import com.demo.trcuentas.domain.dtos.MovimientoResponse;
 
 import java.util.List;
 

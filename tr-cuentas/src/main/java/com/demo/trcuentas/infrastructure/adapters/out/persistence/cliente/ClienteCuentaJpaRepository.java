@@ -1,6 +1,6 @@
 package com.demo.trcuentas.infrastructure.adapters.out.persistence.cliente;
 
-import com.demo.trcuentas.infrastructure.adapters.out.models.ClienteCuenta;
+import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.ClienteCuenta;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

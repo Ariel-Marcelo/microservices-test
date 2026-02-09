@@ -1,13 +1,14 @@
-package com.demo.trcuentas.domain.reporte.response;
+package com.demo.trcuentas.domain.reporte;
 
+import lombok.Builder;
 import lombok.Data;
-
 import java.util.List;
 
 @Data
-public class ReporteEstadoCuentaResponse {
+@Builder
+public class EstadoCuentaReporte {
     private String clienteId;
     private String nombreCliente;
     private String rangoFechasSolicitado;
-    private List<ReporteCuenta> cuentas;
+    private List<CuentaReporte> cuentas;
 }
