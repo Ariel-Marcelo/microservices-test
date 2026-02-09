@@ -1,18 +1,11 @@
 package com.demo.trcuentas.domain.cuenta;
 
-import com.demo.trcuentas.domain.dtos.CuentaResponse;
-import com.demo.trcuentas.domain.dtos.CuentaRequest;
-
 import java.util.List;
 
 public interface CuentaServicePort {
-    CuentaResponse create(CuentaRequest cuentaRequest);
-
-    List<CuentaResponse> getAll();
-
-    CuentaResponse getById(Long id);
-
-    CuentaResponse update(Long id, CuentaRequest cuentaRequest);
-
+    CuentaDomain create(CuentaRequestDomain request);
+    List<CuentaDomain> getAll();
+    CuentaDomain getById(Long id);
+    CuentaDomain update(Long id, CuentaRequestDomain request);
     void delete(Long id);
 }

@@ -8,6 +8,12 @@ import com.demo.trcuentas.domain.dtos.ClienteRequest;
 import com.demo.trcuentas.domain.dtos.ReporteEstadoCuentaResponse;
 import com.demo.trcuentas.domain.dtos.ReporteCuenta;
 import com.demo.trcuentas.domain.dtos.ReporteMovimiento;
+import com.demo.trcuentas.domain.clienteCuenta.ClienteDomain;
+import com.demo.trcuentas.domain.clienteCuenta.ClienteRequestDomain;
+import com.demo.trcuentas.domain.cuenta.CuentaDomain;
+import com.demo.trcuentas.domain.cuenta.CuentaRequestDomain;
+import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
+import com.demo.trcuentas.domain.movimiento.MovimientoRequestDomain;
 import com.demo.trcuentas.domain.reporte.CuentaReporte;
 import com.demo.trcuentas.domain.reporte.EstadoCuentaReporte;
 import com.demo.trcuentas.domain.reporte.MovimientoReporte;
@@ -27,15 +33,15 @@ public interface RestMapper {
     RestMapper INSTANCE = Mappers.getMapper(RestMapper.class);
 
     // Cuenta mappings
-    default CuentaRequest toDomain(CuentaRequest request) { return request; }
-    default CuentaResponse toRest(CuentaResponse response) { return response; }
+    CuentaRequestDomain toDomain(CuentaRequest request);
+    CuentaResponse toRest(CuentaDomain domain);
 
     // Movimiento mappings
-    default MovimientoRequest toDomain(MovimientoRequest request) { return request; }
-    default MovimientoResponse toRest(MovimientoResponse response) { return response; }
+    MovimientoRequestDomain toDomain(MovimientoRequest request);
+    MovimientoResponse toRest(MovimientoDomain domain);
 
     // Cliente mappings
-    default ClienteRequest toDomain(ClienteRequest request) { return request; }
+    ClienteRequestDomain toDomain(ClienteRequest request);
 
     // Report mappings
     default ReporteConsulta toDomain(String clienteId, LocalDate startDate, LocalDate endDate) {

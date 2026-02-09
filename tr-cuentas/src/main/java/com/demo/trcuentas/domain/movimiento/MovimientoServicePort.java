@@ -1,20 +1,11 @@
 package com.demo.trcuentas.domain.movimiento;
 
-import com.demo.trcuentas.domain.dtos.MovimientoRequest;
-import com.demo.trcuentas.domain.dtos.MovimientoResponse;
-
 import java.util.List;
 
 public interface MovimientoServicePort {
-
-    MovimientoResponse create(MovimientoRequest movimientoRequest);
-
-    List<MovimientoResponse> getAll();
-
-    MovimientoResponse getById(Long id);
-
+    MovimientoDomain create(MovimientoRequestDomain request);
+    List<MovimientoDomain> getAll();
+    MovimientoDomain getById(Long id);
     void delete(Long id);
-
-    MovimientoResponse update(Long id, MovimientoRequest request);
-
+    MovimientoDomain update(Long id, MovimientoRequestDomain request);
 }

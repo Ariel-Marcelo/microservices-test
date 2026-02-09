@@ -1,19 +1,11 @@
 package com.demo.trcuentas.domain.cuenta;
 
-import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Cuenta;
-
 import java.util.List;
 
 public interface CuentaRepositoryPort {
-
-    Cuenta save(Cuenta cuenta);
-
-    List<Cuenta> getAllActiveCuentas();
-
-    Cuenta getActiveCuentasById(Long id);
-
-    Cuenta findActiveCuentasByNumeroId(String numeroCuenta);
-
-    List<Cuenta> getCuentasByCliente(String clienteId);
-
+    CuentaDomain save(CuentaDomain cuenta);
+    List<CuentaDomain> getAllActiveCuentas();
+    CuentaDomain getActiveCuentasById(Long id);
+    CuentaDomain findActiveCuentasByNumeroId(String numeroCuenta);
+    List<CuentaDomain> getCuentasByCliente(String clienteId);
 }

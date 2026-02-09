@@ -1,12 +1,17 @@
 package com.demo.trcuentas.infrastructure.adapters.out.persistence.cuenta;
 
+import com.demo.trcuentas.domain.cuenta.CuentaDomain;
+import com.demo.trcuentas.domain.cuenta.CuentaMapper;
 import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
+import com.demo.trcuentas.infrastructure.adapters.out.persistence.cliente.ClienteCuentaJpaRepository;
+import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.ClienteCuenta;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Cuenta;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -14,30 +19,57 @@ import java.util.List;
 public class CuentaRepositoryAdapter implements CuentaRepositoryPort {
 
     private final CuentaJpaRepository jpaRepository;
+    private final ClienteCuentaJpaRepository clienteRepository;
+    private final CuentaMapper cuentaMapper;
+
     @Override
-    public Cuenta save(Cuenta cuenta) {
-        return jpaRepository.save(cuenta);
+    public CuentaDomain save(CuentaDomain domain) {
+        Cuenta entity = jpaRepository.findById(domain.getId() != null ? domain.getId() : -1L)
+                .orElse(cuentaMapper.toEntity(domain));
+        
+        // Update basic fields if updating
+        if (domain.getId() != null) {
+            entity.setNumeroCuenta(domain.getNumeroCuenta());
+            entity.setTipoCuenta(domain.getTipoCuenta());
+            entity.setSaldoInicial(domain.getSaldoInicial());
+            entity.setEstado(domain.getEstado());
+        }
+
+        // Handle the relationship with Cliente
+        if (domain.getClienteId() != null) {
+            ClienteCuenta cliente = clienteRepository.findById(domain.getClienteId())
+                    .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado con ID: " + domain.getClienteId()));
+            entity.setCliente(cliente);
+        }
+
+        return cuentaMapper.toDomain(jpaRepository.save(entity));
     }
 
     @Override
-    public List<Cuenta> getAllActiveCuentas() {
-        return jpaRepository.findByEstadoTrue();
+    public List<CuentaDomain> getAllActiveCuentas() {
+        return jpaRepository.findByEstadoTrue().stream()
+                .map(cuentaMapper::toDomain)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Cuenta getActiveCuentasById(Long id) {
+    public CuentaDomain getActiveCuentasById(Long id) {
         return jpaRepository.findByIdAndEstadoTrue(id)
-                .orElseThrow(() -> new EntityNotFoundException("Cuenta no encontrado o inactiva con ID: " + id));
+                .map(cuentaMapper::toDomain)
+                .orElseThrow(() -> new EntityNotFoundException("Cuenta no encontrada o inactiva con ID: " + id));
     }
 
     @Override
-    public Cuenta findActiveCuentasByNumeroId(String numeroCuenta) {
+    public CuentaDomain findActiveCuentasByNumeroId(String numeroCuenta) {
         return jpaRepository.findByNumeroCuentaAndEstadoTrue(numeroCuenta)
-                .orElseThrow(() -> new EntityNotFoundException("Cuenta no encontrado o inactiva con el número: " + numeroCuenta));
+                .map(cuentaMapper::toDomain)
+                .orElseThrow(() -> new EntityNotFoundException("Cuenta no encontrada o inactiva con el número: " + numeroCuenta));
     }
 
     @Override
-    public List<Cuenta> getCuentasByCliente(String clienteId) {
-        return jpaRepository.findByCliente_ClienteId(clienteId);
+    public List<CuentaDomain> getCuentasByCliente(String clienteId) {
+        return jpaRepository.findByCliente_ClienteId(clienteId).stream()
+                .map(cuentaMapper::toDomain)
+                .collect(Collectors.toList());
     }
 }

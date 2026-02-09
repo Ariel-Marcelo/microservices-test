@@ -1,15 +1,14 @@
 package com.demo.trcuentas.application;
 
-import com.demo.trcuentas.domain.cuenta.CuentaMapper;
+import com.demo.trcuentas.domain.clienteCuenta.ClienteDomain;
+import com.demo.trcuentas.domain.clienteCuenta.ClienteReplicaRepositoryPort;
+import com.demo.trcuentas.domain.cuenta.CuentaDomain;
 import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
+import com.demo.trcuentas.domain.cuenta.CuentaRequestDomain;
 import com.demo.trcuentas.domain.cuenta.CuentaServicePort;
-import com.demo.trcuentas.domain.dtos.CuentaRequest;
-import com.demo.trcuentas.domain.dtos.CuentaResponse;
+import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
 import com.demo.trcuentas.domain.movimiento.MovimientoRepositoryPort;
-import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.ClienteCuenta;
-import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Cuenta;
-import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Movimiento;
-import com.demo.trcuentas.infrastructure.adapters.out.persistence.cliente.ClienteCuentaJpaRepository;
+
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -28,74 +27,78 @@ public class CuentaService implements CuentaServicePort {
 
     private final CuentaRepositoryPort cuentaRepository;
     private final MovimientoRepositoryPort movimientoRepository;
-    private final ClienteCuentaJpaRepository clienteCuentaJpaRepository;
+    private final ClienteReplicaRepositoryPort clienteReplicaRepository;
 
     @Override
-    public CuentaResponse create(CuentaRequest cuentaRequest) {
-        log.info("INICIO CREATE CUENTA: Solicitud para crear cuenta con N° {} para Cliente ID {}.", cuentaRequest.getNumeroCuenta(), cuentaRequest.getClienteId());
+    public CuentaDomain create(CuentaRequestDomain request) {
+        log.info("INICIO CREATE CUENTA: Solicitud para crear cuenta con N° {} para Cliente ID {}.", request.getNumeroCuenta(), request.getClienteId());
 
-        ClienteCuenta cliente = clienteCuentaJpaRepository.findByIdAndEstadoTrue(cuentaRequest.getClienteId())
+        ClienteDomain cliente = clienteReplicaRepository.findByIdAndEstadoTrue(request.getClienteId())
                 .orElseThrow(() -> {
-                    log.warn("FALLO CREATE CUENTA: Cliente {} no encontrado o inactivo.", cuentaRequest.getClienteId());
-                    return new EntityNotFoundException("Cliente no encontrado o inactivo con ID: " + cuentaRequest.getClienteId());
+                    log.warn("FALLO CREATE CUENTA: Cliente {} no encontrado o inactivo.", request.getClienteId());
+                    return new EntityNotFoundException("Cliente no encontrado o inactivo con ID: " + request.getClienteId());
                 });
 
-        Cuenta cuenta = CuentaMapper.INSTANCE.toEntity(cuentaRequest);
-        cuenta.setCliente(cliente);
-        Cuenta savedCuenta = cuentaRepository.save(cuenta);
+        CuentaDomain cuenta = CuentaDomain.builder()
+                .numeroCuenta(request.getNumeroCuenta())
+                .tipoCuenta(request.getTipoCuenta())
+                .saldoInicial(request.getSaldoInicial())
+                .estado(true)
+                .clienteId(cliente.getId())
+                .build();
+
+        CuentaDomain savedCuenta = cuentaRepository.save(cuenta);
 
         log.info("CUENTA CREADA: Cuenta N° {} guardada con ID {}. Saldo inicial: {}", savedCuenta.getNumeroCuenta(), savedCuenta.getId(), savedCuenta.getSaldoInicial());
 
         if (savedCuenta.getSaldoInicial().compareTo(BigDecimal.ZERO) > 0) {
             log.info("MOVIMIENTO INICIAL: Generando movimiento de crédito inicial por {}", savedCuenta.getSaldoInicial());
-            Movimiento movimientoInicial = new Movimiento();
-            movimientoInicial.setFecha(java.time.LocalDateTime.now());
-            movimientoInicial.setTipoMovimiento("Credito");
-            movimientoInicial.setValor(savedCuenta.getSaldoInicial());
-            movimientoInicial.setSaldo(savedCuenta.getSaldoInicial());
-            movimientoInicial.setCuenta(savedCuenta);
+            MovimientoDomain movimientoInicial = MovimientoDomain.builder()
+                    .fecha(LocalDateTime.now())
+                    .tipoMovimiento("Credito")
+                    .valor(savedCuenta.getSaldoInicial())
+                    .saldo(savedCuenta.getSaldoInicial())
+                    .cuentaId(savedCuenta.getId())
+                    .build();
             movimientoRepository.save(movimientoInicial);
             log.debug("Movimiento inicial guardado.");
         }
 
         log.info("FIN CREATE CUENTA: Cuenta N° {} creada y proceso completado.", savedCuenta.getNumeroCuenta());
-        return CuentaMapper.INSTANCE.toResponse(savedCuenta);
+        return savedCuenta;
     }
 
     @Override
-    public List<CuentaResponse> getAll() {
-        log.info("INICIO GET ALL CUENTAS: Recuperando todas las cuentas activas.");
-        List<CuentaResponse> response = cuentaRepository.getAllActiveCuentas().stream().map(CuentaMapper.INSTANCE::toResponse).collect(Collectors.toList());
-        log.info("FIN GET ALL CUENTAS: {} cuentas activas recuperadas.", response.size());
-        return response;
+    public List<CuentaDomain> getAll() {
+        return cuentaRepository.getAllActiveCuentas();
     }
 
     @Override
-    public CuentaResponse getById(Long id) {
-        log.info("INICIO GET BY ID CUENTA: Buscando cuenta activa por ID {}.", id);
-        CuentaResponse response = CuentaMapper.INSTANCE.toResponse(cuentaRepository.getActiveCuentasById(id));
-        log.info("FIN GET BY ID CUENTA: Cuenta ID {} encontrada.", id);
-        return response;
+    public CuentaDomain getById(Long id) {
+        return cuentaRepository.getActiveCuentasById(id);
     }
 
     @Override
-    public CuentaResponse update(Long id, CuentaRequest cuentaRequest) {
+    public CuentaDomain update(Long id, CuentaRequestDomain request) {
         log.warn("INICIO UPDATE CUENTA: Solicitud de actualización para Cuenta ID {}.", id);
 
-        ClienteCuenta cliente = clienteCuentaJpaRepository.findByIdAndEstadoTrue(cuentaRequest.getClienteId())
+        ClienteDomain cliente = clienteReplicaRepository.findByIdAndEstadoTrue(request.getClienteId())
                 .orElseThrow(() -> {
-                    log.warn("FALLO UPDATE CUENTA: Cliente {} no encontrado o inactivo.", cuentaRequest.getClienteId());
-                    return new EntityNotFoundException("Cliente no encontrado o inactivo con ID: " + cuentaRequest.getClienteId());
+                    log.warn("FALLO UPDATE CUENTA: Cliente {} no encontrado o inactivo.", request.getClienteId());
+                    return new EntityNotFoundException("Cliente no encontrado o inactivo con ID: " + request.getClienteId());
                 });
 
-        Cuenta cuenta = cuentaRepository.getActiveCuentasById(id);
+        CuentaDomain cuenta = cuentaRepository.getActiveCuentasById(id);
         BigDecimal pastAmount = cuenta.getSaldoInicial();
         
-        log.debug("Estado inicial de Cuenta {}: Saldo previo {}, Nuevo saldo solicitado {}", cuenta.getNumeroCuenta(), pastAmount, cuentaRequest.getSaldoInicial());
+        log.debug("Estado inicial de Cuenta {}: Saldo previo {}, Nuevo saldo solicitado {}", cuenta.getNumeroCuenta(), pastAmount, request.getSaldoInicial());
 
-        CuentaMapper.INSTANCE.updateEntityFromRequest(cuentaRequest, cuenta);
-        cuenta.setCliente(cliente);
-        Cuenta cuentaUpdated = cuentaRepository.save(cuenta);
+        cuenta.setNumeroCuenta(request.getNumeroCuenta());
+        cuenta.setTipoCuenta(request.getTipoCuenta());
+        cuenta.setSaldoInicial(request.getSaldoInicial());
+        cuenta.setClienteId(cliente.getId());
+
+        CuentaDomain cuentaUpdated = cuentaRepository.save(cuenta);
         BigDecimal newAmount = cuentaUpdated.getSaldoInicial();
 
         if (pastAmount.compareTo(newAmount) != 0) {
@@ -107,26 +110,27 @@ public class CuentaService implements CuentaServicePort {
             
             log.warn("AJUSTE DE SALDO: Saldo modificado de {} a {}. Diferencia: {}. Tipo: {}", pastAmount, newAmount, diferencia, tipoMovement);
 
-            Movimiento ajuste = new Movimiento();
-            ajuste.setFecha(java.time.LocalDateTime.now());
-            ajuste.setTipoMovimiento(tipoMovement);
-            ajuste.setValor(diferencia);
-            ajuste.setSaldo(newAmount);
-            ajuste.setCuenta(cuentaUpdated);
+            MovimientoDomain ajuste = MovimientoDomain.builder()
+                    .fecha(LocalDateTime.now())
+                    .tipoMovimiento(tipoMovement)
+                    .valor(diferencia)
+                    .saldo(newAmount)
+                    .cuentaId(cuentaUpdated.getId())
+                    .build();
 
             movimientoRepository.save(ajuste);
             log.info("MOVIMIENTO DE AJUSTE CREADO. Saldo final: {}", newAmount);
         }
 
         log.warn("FIN UPDATE CUENTA: Cuenta ID {} actualizada con éxito.", id);
-        return CuentaMapper.INSTANCE.toResponse(cuentaUpdated);
+        return cuentaUpdated;
     }
 
     @Override
     public void delete(Long id) {
         log.warn("INICIO DELETE CUENTA: Solicitud de inhabilitación de Cuenta ID {}.", id);
         
-        Cuenta cuenta = cuentaRepository.getActiveCuentasById(id);
+        CuentaDomain cuenta = cuentaRepository.getActiveCuentasById(id);
         cuenta.setEstado(false);
         cuentaRepository.save(cuenta);
         
