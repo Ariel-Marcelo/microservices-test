@@ -1,4 +1,4 @@
-package com.demo.trcuentas.infrastructure.adapters.out.models;
+package com.demo.trcuentas.infrastructure.adapters.out.persistence.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
