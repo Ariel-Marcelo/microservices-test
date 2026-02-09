@@ -1,7 +1,7 @@
 package com.demo.trcuentas.domain.clienteCuenta;
 
 public interface ClienteReplicaService {
-    void saveReplica(ClienteRequestDomain domain);
-    void updateReplica(Long id, ClienteRequestDomain domain);
+    void saveReplica(ClienteDomain domain);
+    void updateReplica(Long id, ClienteDomain domain);
     void deleteReplica(Long id);
 }

@@ -9,9 +9,7 @@ import com.demo.trcuentas.domain.dtos.ReporteEstadoCuentaResponse;
 import com.demo.trcuentas.domain.dtos.ReporteCuenta;
 import com.demo.trcuentas.domain.dtos.ReporteMovimiento;
 import com.demo.trcuentas.domain.clienteCuenta.ClienteDomain;
-import com.demo.trcuentas.domain.clienteCuenta.ClienteRequestDomain;
 import com.demo.trcuentas.domain.cuenta.CuentaDomain;
-import com.demo.trcuentas.domain.cuenta.CuentaRequestDomain;
 import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
 import com.demo.trcuentas.domain.movimiento.MovimientoRequestDomain;
 import com.demo.trcuentas.domain.reporte.CuentaReporte;
@@ -33,7 +31,7 @@ public interface RestMapper {
     RestMapper INSTANCE = Mappers.getMapper(RestMapper.class);
 
     // Cuenta mappings
-    CuentaRequestDomain toDomain(CuentaRequest request);
+    CuentaDomain toDomain(CuentaRequest request);
     CuentaResponse toRest(CuentaDomain domain);
 
     // Movimiento mappings
@@ -41,7 +39,7 @@ public interface RestMapper {
     MovimientoResponse toRest(MovimientoDomain domain);
 
     // Cliente mappings
-    ClienteRequestDomain toDomain(ClienteRequest request);
+    ClienteDomain toDomain(ClienteRequest request);
 
     // Report mappings
     default ReporteConsulta toDomain(String clienteId, LocalDate startDate, LocalDate endDate) {

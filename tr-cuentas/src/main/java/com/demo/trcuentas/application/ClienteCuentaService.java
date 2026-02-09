@@ -3,7 +3,6 @@ package com.demo.trcuentas.application;
 import com.demo.trcuentas.domain.clienteCuenta.ClienteDomain;
 import com.demo.trcuentas.domain.clienteCuenta.ClienteReplicaService;
 import com.demo.trcuentas.domain.clienteCuenta.ClienteReplicaRepositoryPort;
-import com.demo.trcuentas.domain.clienteCuenta.ClienteRequestDomain;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,36 +17,30 @@ public class ClienteCuentaService implements ClienteReplicaService {
     private final ClienteReplicaRepositoryPort repository;
 
     @Transactional
-    public void saveReplica(ClienteRequestDomain domain) {
-        log.info("REPLICA: Procesando creación/actualización para cliente ID: {}", domain.getId());
-
-        ClienteDomain clienteDomain = ClienteDomain.builder()
-                .id(domain.getId())
-                .clienteId(domain.getClienteId())
-                .nombre(domain.getNombre())
-                .estado(true)
-                .build();
-
-        repository.save(clienteDomain);
-        log.info("Replica guardada correctamente.");
+    @Override
+    public void saveReplica(ClienteDomain domain) {
+        log.info("REPLICA: Procesando persistencia para cliente ID: {}", domain.getId());
+        repository.save(domain);
+        log.info("Replica de cliente {} sincronizada.", domain.getNombre());
     }
 
     @Transactional
-    public void updateReplica(Long id, ClienteRequestDomain domain) {
+    @Override
+    public void updateReplica(Long id, ClienteDomain domain) {
         log.info("REPLICA: Actualizando cliente ID: {}", id);
+        
+        if (!repository.findById(id).isPresent()) {
+            throw new EntityNotFoundException("Cliente Replica no encontrado con ID: " + id);
+        }
 
-        ClienteDomain cliente = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Cliente Replica no encontrado con ID: " + id));
-
-        cliente.setClienteId(domain.getClienteId());
-        cliente.setNombre(domain.getNombre());
-
-        repository.save(cliente);
+        domain.setId(id);
+        repository.save(domain);
     }
 
     @Transactional
+    @Override
     public void deleteReplica(Long id) {
-        log.info("REPLICA: Inhabilitando cliente ID: {}", id);
+        log.info("REPLICA: Marcando como inactivo cliente ID: {}", id);
 
         ClienteDomain cliente = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente Replica no encontrado con ID: " + id));

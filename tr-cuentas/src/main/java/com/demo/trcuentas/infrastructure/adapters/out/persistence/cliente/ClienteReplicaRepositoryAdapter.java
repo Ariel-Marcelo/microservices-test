@@ -4,6 +4,7 @@ import com.demo.trcuentas.domain.clienteCuenta.ClienteDomain;
 import com.demo.trcuentas.domain.clienteCuenta.ClienteMapper;
 import com.demo.trcuentas.domain.clienteCuenta.ClienteReplicaRepositoryPort;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.ClienteCuenta;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -37,7 +38,6 @@ public class ClienteReplicaRepositoryAdapter implements ClienteReplicaRepository
                 .orElse(new ClienteCuenta());
         
         clienteMapper.updateEntityFromDomain(domain, entity);
-        // Ensure ID is set for new replicas if coming from DTO
         if (entity.getId() == null) {
             entity.setId(domain.getId());
         }
