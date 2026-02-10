@@ -1,8 +1,8 @@
 package com.demo.trclientes.application.cliente;
 
-import com.demo.trclientes.domain.cliente.ports.ClienteExternalServicePort;
-import com.demo.trclientes.domain.cliente.ports.ClienteRepositoryPort;
-import com.demo.trclientes.domain.cliente.ports.ClienteServicePort;
+import com.demo.trclientes.domain.cliente.ports.out.ClienteExternalServicePort;
+import com.demo.trclientes.domain.cliente.ports.out.ClienteRepositoryPort;
+import com.demo.trclientes.domain.cliente.ports.in.ClienteServicePort;
 import com.demo.trclientes.domain.cliente.models.Client;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

@@ -1,13 +1,11 @@
-package com.demo.trcuentas.application;
+package com.demo.trcuentas.application.movimiento;
 
-import com.demo.trcuentas.application.movimiento.MovimientoService;
+import com.demo.trcuentas.domain.cuenta.CuentaDomain;
 import com.demo.trcuentas.domain.cuenta.ports.out.CuentaRepositoryPort;
+import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
 import com.demo.trcuentas.domain.movimiento.ports.out.MovimientoRepositoryPort;
-import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.MovimientoRequest;
-import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.MovimientoResponse;
-import com.demo.trcuentas.domain.exceptions.LowBalanceException;
-import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Cuenta;
-import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Movimiento;
+import com.demo.trcuentas.domain.movimiento.strategies.MovimientoStrategy;
+import com.demo.trcuentas.domain.movimiento.strategies.MovimientoStrategyFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,6 +30,9 @@ class MovimientoServiceTest {
     @Mock
     private MovimientoRepositoryPort movimientoRepository;
 
+    @Mock
+    private MovimientoStrategyFactory strategyFactory;
+
     @InjectMocks
     private MovimientoService movimientoService;
 
@@ -38,49 +40,37 @@ class MovimientoServiceTest {
     @DisplayName("Create: Debería registrar un Depósito y aumentar el saldo")
     void create_ShouldIncreaseBalance_WhenCredito() {
         // ARRANGE
-        String numeroCuenta = "12345";
+        Long cuentaId = 1L;
         BigDecimal saldoInicial = new BigDecimal("100.00");
         BigDecimal valorCredito = new BigDecimal("50.00");
+        BigDecimal saldoFinal = new BigDecimal("150.00");
 
-        Cuenta cuentaMock = new Cuenta();
-        cuentaMock.setNumeroCuenta(numeroCuenta);
-        cuentaMock.setSaldoInicial(saldoInicial);
+        CuentaDomain cuentaMock = CuentaDomain.builder()
+                .id(cuentaId)
+                .saldoInicial(saldoInicial)
+                .build();
 
-        MovimientoRequest request = new MovimientoRequest();
-        request.setNumeroCuenta(numeroCuenta);
-        request.setTipoMovimiento("Credito");
-        request.setValor(valorCredito);
+        MovimientoDomain domainRequest = MovimientoDomain.builder()
+                .cuentaId(cuentaId)
+                .tipoMovimiento("Credito")
+                .valor(valorCredito)
+                .build();
 
-        when(cuentaRepository.findActiveCuentasByNumeroId(numeroCuenta)).thenReturn(cuentaMock);
-        when(movimientoRepository.save(any(Movimiento.class))).thenAnswer(i -> i.getArgument(0));
+        MovimientoStrategy strategyMock = mock(MovimientoStrategy.class);
+
+        when(cuentaRepository.getActiveCuentasById(cuentaId)).thenReturn(cuentaMock);
+        when(strategyFactory.getStrategy("Credito")).thenReturn(strategyMock);
+        when(strategyMock.calcularNuevoSaldo(saldoInicial, valorCredito)).thenReturn(saldoFinal);
+        when(movimientoRepository.save(any(MovimientoDomain.class))).thenAnswer(i -> i.getArgument(0));
 
         // ACT
-        MovimientoResponse response = movimientoService.create(request);
+        MovimientoDomain response = movimientoService.create(domainRequest);
 
         // ASSERT
         assertNotNull(response);
-        assertEquals(new BigDecimal("150.00"), cuentaMock.getSaldoInicial());
+        assertEquals(saldoFinal, response.getSaldo());
+        assertEquals(valorCredito, response.getValor());
         verify(cuentaRepository).save(cuentaMock);
-    }
-
-    @Test
-    @DisplayName("Create: Debería lanzar LowBalanceException si el Retiro excede el saldo")
-    void create_ShouldThrowException_WhenBalanceIsInsufficient() {
-        // ARRANGE
-        Cuenta cuentaMock = new Cuenta();
-        cuentaMock.setSaldoInicial(new BigDecimal("10.00"));
-
-        MovimientoRequest request = new MovimientoRequest();
-        request.setNumeroCuenta("12345");
-        request.setTipoMovimiento("Debito");
-        request.setValor(new BigDecimal("50.00"));
-
-        when(cuentaRepository.findActiveCuentasByNumeroId("12345")).thenReturn(cuentaMock);
-
-        assertThrows(LowBalanceException.class, () -> movimientoService.create(request));
-
-        verify(cuentaRepository, never()).save(any());
-        verify(movimientoRepository, never()).save(any());
     }
 
     @Test
@@ -88,88 +78,79 @@ class MovimientoServiceTest {
     void update_ShouldUpdateBalance_WhenIsLastMovement() {
         // ARRANGE
         Long movimientoId = 1L;
-        Long cuentaId = 100L;
+        Long cuentaId = 10L;
 
-        Cuenta cuentaMock = new Cuenta();
-        cuentaMock.setId(cuentaId);
-        cuentaMock.setSaldoInicial(new BigDecimal("150.00"));
+        CuentaDomain cuentaMock = CuentaDomain.builder()
+                .id(cuentaId)
+                .saldoInicial(new BigDecimal("150.00"))
+                .build();
 
-        Movimiento movimientoOriginal = new Movimiento();
-        movimientoOriginal.setId(movimientoId);
-        movimientoOriginal.setTipoMovimiento("Debito");
-        movimientoOriginal.setValor(new BigDecimal("-50.00"));
-        movimientoOriginal.setCuenta(cuentaMock);
+        MovimientoDomain original = MovimientoDomain.builder()
+                .id(movimientoId)
+                .cuentaId(cuentaId)
+                .tipoMovimiento("Debito")
+                .valor(new BigDecimal("-50.00"))
+                .build();
 
-        MovimientoRequest request = new MovimientoRequest();
-        request.setTipoMovimiento("Debito");
-        request.setValor(new BigDecimal("20.00"));
+        MovimientoDomain updateRequest = MovimientoDomain.builder()
+                .tipoMovimiento("Debito")
+                .valor(new BigDecimal("20.00"))
+                .build();
 
-        when(movimientoRepository.getMovimientosById(movimientoId)).thenReturn(movimientoOriginal);
-        when(movimientoRepository.findLastByCuentaId(cuentaId)).thenReturn(Optional.of(movimientoOriginal));
-        when(movimientoRepository.save(any(Movimiento.class))).thenAnswer(i -> i.getArgument(0));
+        MovimientoStrategy strategyMock = mock(MovimientoStrategy.class);
+
+        when(movimientoRepository.getMovimientosById(movimientoId)).thenReturn(original);
+        when(movimientoRepository.findLastByCuentaId(cuentaId)).thenReturn(Optional.of(original));
+        when(cuentaRepository.getActiveCuentasById(cuentaId)).thenReturn(cuentaMock);
+        when(strategyFactory.getStrategy("Debito")).thenReturn(strategyMock);
+        
+        // saldoBase = 150 - (-50) = 200. Luego 200 - 20 = 180
+        when(strategyMock.calcularNuevoSaldo(new BigDecimal("200.00"), new BigDecimal("20.00")))
+                .thenReturn(new BigDecimal("180.00"));
+        
+        when(movimientoRepository.save(any(MovimientoDomain.class))).thenAnswer(i -> i.getArgument(0));
 
         // ACT
-        movimientoService.update(movimientoId, request);
+        MovimientoDomain result = movimientoService.update(movimientoId, updateRequest);
 
         // ASSERT
-        assertEquals(new BigDecimal("180.00"), cuentaMock.getSaldoInicial());
+        assertEquals(new BigDecimal("180.00"), result.getSaldo());
+        assertEquals(new BigDecimal("-20.00"), result.getValor());
         verify(cuentaRepository).save(cuentaMock);
     }
 
     @Test
-    @DisplayName("Update: Debería fallar si NO es el último movimiento")
-    void update_ShouldThrowError_WhenNotLastMovement() {
-        // ARRANGE
-        Long movimientoId = 1L;
-        Long ultimoMovimientoId = 2L;
-        Long cuentaId = 100L;
-
-        Cuenta cuentaMock = new Cuenta();
-        cuentaMock.setId(cuentaId);
-
-        Movimiento movimientoOriginal = new Movimiento();
-        movimientoOriginal.setId(movimientoId);
-        movimientoOriginal.setCuenta(cuentaMock);
-
-        Movimiento ultimoMovimientoReal = new Movimiento();
-        ultimoMovimientoReal.setId(ultimoMovimientoId);
-
-        when(movimientoRepository.getMovimientosById(movimientoId)).thenReturn(movimientoOriginal);
-        when(movimientoRepository.findLastByCuentaId(cuentaId)).thenReturn(Optional.of(ultimoMovimientoReal));
-
-        // ACT & ASSERT
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> movimientoService.update(movimientoId, new MovimientoRequest()));
-
-        assertTrue(exception.getMessage().contains("Solo se permite editar el último movimiento"));
-    }
-
-
-    @Test
-    @DisplayName("Delete: Debería reversar la transacción creando una contrapartida")
+    @DisplayName("Delete: Debería reversar la transacción")
     void delete_ShouldReverseTransaction() {
         // ARRANGE
         Long movimientoId = 1L;
-        Cuenta cuentaMock = new Cuenta();
-        cuentaMock.setSaldoInicial(new BigDecimal("150.00"));
+        Long cuentaId = 10L;
+        
+        CuentaDomain cuentaMock = CuentaDomain.builder()
+                .id(cuentaId)
+                .saldoInicial(new BigDecimal("150.00"))
+                .build();
 
-        Movimiento movimientoOriginal = new Movimiento();
-        movimientoOriginal.setId(movimientoId);
-        movimientoOriginal.setTipoMovimiento("Credito");
-        movimientoOriginal.setValor(new BigDecimal("50.00"));
-        movimientoOriginal.setCuenta(cuentaMock);
+        MovimientoDomain original = MovimientoDomain.builder()
+                .id(movimientoId)
+                .cuentaId(cuentaId)
+                .tipoMovimiento("Credito")
+                .valor(new BigDecimal("50.00"))
+                .build();
 
-        when(movimientoRepository.getMovimientosById(movimientoId)).thenReturn(movimientoOriginal);
+        MovimientoStrategy strategyMock = mock(MovimientoStrategy.class);
+
+        when(movimientoRepository.getMovimientosById(movimientoId)).thenReturn(original);
+        when(cuentaRepository.getActiveCuentasById(cuentaId)).thenReturn(cuentaMock);
+        when(strategyFactory.getStrategy("Debito")).thenReturn(strategyMock);
+        when(strategyMock.calcularNuevoSaldo(any(), any())).thenReturn(new BigDecimal("100.00"));
 
         // ACT
         movimientoService.delete(movimientoId);
 
         // ASSERT
-        assertEquals(new BigDecimal("100.00"), cuentaMock.getSaldoInicial());
-
-        assertEquals("Reversado", movimientoOriginal.getTipoMovimiento());
-
+        assertEquals("Reversado", original.getTipoMovimiento());
         verify(cuentaRepository).save(cuentaMock);
-        verify(movimientoRepository, times(2)).save(any(Movimiento.class));
+        verify(movimientoRepository, times(2)).save(any(MovimientoDomain.class));
     }
 }

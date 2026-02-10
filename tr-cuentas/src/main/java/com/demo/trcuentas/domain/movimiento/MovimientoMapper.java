@@ -1,6 +1,6 @@
 package com.demo.trcuentas.domain.movimiento;
 
-import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Movimiento;
+import com.demo.trcuentas.infrastructure.persistence.models.Movimiento;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

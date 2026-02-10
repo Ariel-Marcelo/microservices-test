@@ -1,6 +1,6 @@
 package com.demo.trcuentas.domain.movimiento.strategies;
 
-import com.demo.trcuentas.domain.exceptions.LowBalanceException;
+import com.demo.trcuentas.domain.shared.exceptions.LowBalanceException;
 import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 

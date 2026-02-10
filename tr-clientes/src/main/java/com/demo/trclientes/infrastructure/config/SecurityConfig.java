@@ -32,7 +32,6 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // Nota: En una demo usamos la misma clave. En real, se usaría un Keystore.
     public static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     @Bean
@@ -64,7 +63,6 @@ public class SecurityConfig {
         return source;
     }
 
-    // Filtro simple para validar el JWT que generamos en AuthController
     private static class JwtTokenFilter extends OncePerRequestFilter {
         @Override
         protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

@@ -1,6 +1,6 @@
 package com.demo.trcuentas.domain.clienteCuenta;
 
-import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.ClienteCuenta;
+import com.demo.trcuentas.infrastructure.persistence.models.ClienteCuenta;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
