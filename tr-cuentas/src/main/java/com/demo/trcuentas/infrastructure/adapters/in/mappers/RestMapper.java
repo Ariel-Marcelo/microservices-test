@@ -1,20 +1,11 @@
 package com.demo.trcuentas.infrastructure.adapters.in.mappers;
 
-import com.demo.trcuentas.domain.dtos.CuentaRequest;
-import com.demo.trcuentas.domain.dtos.CuentaResponse;
-import com.demo.trcuentas.domain.dtos.MovimientoRequest;
-import com.demo.trcuentas.domain.dtos.MovimientoResponse;
-import com.demo.trcuentas.domain.dtos.ClienteRequest;
-import com.demo.trcuentas.domain.dtos.ReporteEstadoCuentaResponse;
-import com.demo.trcuentas.domain.dtos.ReporteCuenta;
-import com.demo.trcuentas.domain.dtos.ReporteMovimiento;
 import com.demo.trcuentas.domain.clienteCuenta.ClienteDomain;
 import com.demo.trcuentas.domain.cuenta.CuentaDomain;
 import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
-import com.demo.trcuentas.domain.reporte.CuentaReporte;
 import com.demo.trcuentas.domain.reporte.EstadoCuentaReporte;
-import com.demo.trcuentas.domain.reporte.MovimientoReporte;
 import com.demo.trcuentas.domain.reporte.ReporteConsulta;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -37,7 +28,7 @@ public interface RestMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "fecha", ignore = true)
     @Mapping(target = "saldo", ignore = true)
-    @Mapping(target = "cuentaId", ignore = true) // El controlador debe buscar el ID por numeroCuenta
+    @Mapping(target = "cuentaId", ignore = true)
     MovimientoDomain toDomain(MovimientoRequest request);
     MovimientoResponse toRest(MovimientoDomain domain);
 
@@ -55,10 +46,6 @@ public interface RestMapper {
 
     ReporteEstadoCuentaResponse toRest(EstadoCuentaReporte response);
 
-    @Mapping(target = "movimientos", source = "movimientos")
-    ReporteCuenta toRest(CuentaReporte response);
-
-    ReporteMovimiento toRest(MovimientoReporte response);
 
     default OffsetDateTime map(LocalDateTime value) {
         if (value == null) {

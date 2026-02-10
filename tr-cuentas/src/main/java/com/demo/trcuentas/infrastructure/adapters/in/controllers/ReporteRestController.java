@@ -2,7 +2,7 @@ package com.demo.trcuentas.infrastructure.adapters.in.controllers;
 
 import com.demo.trcuentas.application.ReporteService;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.api.ReportsApi;
-import com.demo.trcuentas.domain.dtos.ApiResponseReporteEstadoCuentaResponse;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.ApiResponseReporteEstadoCuentaResponse;
 import com.demo.trcuentas.infrastructure.adapters.in.mappers.RestMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

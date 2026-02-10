@@ -2,8 +2,8 @@ package com.demo.trcuentas.infrastructure.adapters.in.controllers;
 
 import com.demo.trcuentas.domain.clienteCuenta.ClienteReplicaService;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.api.ReplicaApi;
-import com.demo.trcuentas.domain.dtos.ApiResponseVoid;
-import com.demo.trcuentas.domain.dtos.ClienteRequest;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.ApiResponseVoid;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.ClienteRequest;
 import com.demo.trcuentas.infrastructure.adapters.in.mappers.RestMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

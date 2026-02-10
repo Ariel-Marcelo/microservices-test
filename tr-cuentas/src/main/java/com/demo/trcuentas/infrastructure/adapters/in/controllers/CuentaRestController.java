@@ -2,11 +2,11 @@ package com.demo.trcuentas.infrastructure.adapters.in.controllers;
 
 import com.demo.trcuentas.application.CuentaService;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.api.AccountsApi;
-import com.demo.trcuentas.domain.dtos.ApiResponseCuentaResponse;
-import com.demo.trcuentas.domain.dtos.ApiResponseListCuentaResponse;
-import com.demo.trcuentas.domain.dtos.ApiResponseVoid;
-import com.demo.trcuentas.domain.dtos.CuentaRequest;
-import com.demo.trcuentas.domain.dtos.CuentaResponse;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.ApiResponseCuentaResponse;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.ApiResponseListCuentaResponse;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.ApiResponseVoid;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.CuentaRequest;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.CuentaResponse;
 import com.demo.trcuentas.infrastructure.adapters.in.mappers.RestMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

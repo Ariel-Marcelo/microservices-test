@@ -111,7 +111,7 @@
 							<inputSpec>${project.basedir}/src/main/resources/api/openapi.yaml</inputSpec>
 							<generatorName>spring</generatorName>
 							<apiPackage>com.demo.trcuentas.infrastructure.adapters.in.rest.api</apiPackage>
-							<modelPackage>com.demo.trcuentas.domain.dtos</modelPackage>
+							<modelPackage>com.demo.trcuentas.infrastructure.adapters.in.rest.dtos</modelPackage>
 							<supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
 							<configOptions>
 								<interfaceOnly>true</interfaceOnly>

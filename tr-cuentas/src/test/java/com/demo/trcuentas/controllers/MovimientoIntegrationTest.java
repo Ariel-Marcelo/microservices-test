@@ -1,7 +1,7 @@
 package com.demo.trcuentas.controllers;
 
 import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
-import com.demo.trcuentas.domain.dtos.MovimientoRequest;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.MovimientoRequest;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.ClienteCuenta;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Cuenta;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.cliente.ClienteCuentaJpaRepository;

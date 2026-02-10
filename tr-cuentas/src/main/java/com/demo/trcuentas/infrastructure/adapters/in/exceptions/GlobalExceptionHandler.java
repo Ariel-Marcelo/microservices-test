@@ -1,6 +1,6 @@
 package com.demo.trcuentas.infrastructure.adapters.in.exceptions;
 
-import com.demo.trcuentas.domain.dtos.ApiResponseError;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.ApiResponseError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
