@@ -1,7 +1,7 @@
 package com.demo.trcuentas.infrastructure.adapters.in.controllers;
 
-import com.demo.trcuentas.application.MovimientoService;
-import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
+import com.demo.trcuentas.application.movimiento.MovimientoService;
+import com.demo.trcuentas.domain.cuenta.ports.out.CuentaRepositoryPort;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.api.MovementsApi;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.ApiResponseListMovimientoResponse;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.ApiResponseMovimientoResponse;
@@ -35,11 +35,11 @@ public class MovimientoRestController implements MovementsApi {
         log.info("INICIO PETICIÓN (OpenAPI): [POST /api/v1/movements]");
         
         var cuenta = cuentaRepository.findActiveCuentasByNumeroId(movimientoRequest.getNumeroCuenta());
-        
         MovimientoDomain domain = restMapper.toDomain(movimientoRequest);
         domain.setCuentaId(cuenta.getId());
 
         var domainResponse = movimientoService.create(domain);
+
         var restResponse = restMapper.toRest(domainResponse);
 
         ApiResponseMovimientoResponse response = new ApiResponseMovimientoResponse();

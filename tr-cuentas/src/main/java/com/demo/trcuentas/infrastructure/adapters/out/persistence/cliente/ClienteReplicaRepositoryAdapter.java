@@ -2,7 +2,7 @@ package com.demo.trcuentas.infrastructure.adapters.out.persistence.cliente;
 
 import com.demo.trcuentas.domain.clienteCuenta.ClienteDomain;
 import com.demo.trcuentas.domain.clienteCuenta.ClienteMapper;
-import com.demo.trcuentas.domain.clienteCuenta.ClienteReplicaRepositoryPort;
+import com.demo.trcuentas.domain.clienteCuenta.ports.out.ClienteReplicaRepositoryPort;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.ClienteCuenta;
 
 import lombok.RequiredArgsConstructor;

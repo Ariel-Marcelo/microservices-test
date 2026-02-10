@@ -1,6 +1,6 @@
-package com.demo.trcuentas.application;
+package com.demo.trcuentas.application.reporte;
 
-import com.demo.trcuentas.domain.reporte.ReporteRepositoryPort;
+import com.demo.trcuentas.domain.reporte.ports.out.ReporteRepositoryPort;
 import com.demo.trcuentas.domain.reporte.ReporteConsulta;
 import com.demo.trcuentas.domain.reporte.EstadoCuentaReporte;
 import jakarta.persistence.EntityNotFoundException;

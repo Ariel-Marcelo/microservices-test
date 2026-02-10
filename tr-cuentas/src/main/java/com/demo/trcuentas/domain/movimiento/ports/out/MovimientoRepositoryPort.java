@@ -1,4 +1,6 @@
-package com.demo.trcuentas.domain.movimiento;
+package com.demo.trcuentas.domain.movimiento.ports.out;
+
+import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
 
 import java.time.LocalDateTime;
 import java.util.List;

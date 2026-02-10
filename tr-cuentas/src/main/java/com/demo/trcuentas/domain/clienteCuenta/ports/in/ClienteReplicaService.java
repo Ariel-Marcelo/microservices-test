@@ -1,4 +1,6 @@
-package com.demo.trcuentas.domain.clienteCuenta;
+package com.demo.trcuentas.domain.clienteCuenta.ports.in;
+
+import com.demo.trcuentas.domain.clienteCuenta.ClienteDomain;
 
 public interface ClienteReplicaService {
     void saveReplica(ClienteDomain domain);

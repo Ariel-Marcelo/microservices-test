@@ -2,7 +2,7 @@ package com.demo.trcuentas.infrastructure.adapters.out.persistence.movimiento;
 
 import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
 import com.demo.trcuentas.domain.movimiento.MovimientoMapper;
-import com.demo.trcuentas.domain.movimiento.MovimientoRepositoryPort;
+import com.demo.trcuentas.domain.movimiento.ports.out.MovimientoRepositoryPort;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.cuenta.CuentaJpaRepository;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Cuenta;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Movimiento;

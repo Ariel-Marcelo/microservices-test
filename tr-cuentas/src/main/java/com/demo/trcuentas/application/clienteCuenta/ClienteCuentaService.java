@@ -1,8 +1,8 @@
-package com.demo.trcuentas.application;
+package com.demo.trcuentas.application.clienteCuenta;
 
 import com.demo.trcuentas.domain.clienteCuenta.ClienteDomain;
-import com.demo.trcuentas.domain.clienteCuenta.ClienteReplicaService;
-import com.demo.trcuentas.domain.clienteCuenta.ClienteReplicaRepositoryPort;
+import com.demo.trcuentas.domain.clienteCuenta.ports.in.ClienteReplicaService;
+import com.demo.trcuentas.domain.clienteCuenta.ports.out.ClienteReplicaRepositoryPort;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

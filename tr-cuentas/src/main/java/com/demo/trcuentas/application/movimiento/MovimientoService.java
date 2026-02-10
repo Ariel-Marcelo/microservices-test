@@ -1,12 +1,12 @@
-package com.demo.trcuentas.application;
+package com.demo.trcuentas.application.movimiento;
 
 import com.demo.trcuentas.domain.cuenta.CuentaDomain;
-import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
+import com.demo.trcuentas.domain.cuenta.ports.out.CuentaRepositoryPort;
 import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
-import com.demo.trcuentas.domain.movimiento.MovimientoRepositoryPort;
-import com.demo.trcuentas.domain.movimiento.MovimientoServicePort;
-import com.demo.trcuentas.domain.movimiento.MovimientoStrategy;
-import com.demo.trcuentas.domain.movimiento.MovimientoStrategyFactory;
+import com.demo.trcuentas.domain.movimiento.ports.out.MovimientoRepositoryPort;
+import com.demo.trcuentas.domain.movimiento.ports.in.MovimientoServicePort;
+import com.demo.trcuentas.domain.movimiento.strategies.MovimientoStrategy;
+import com.demo.trcuentas.domain.movimiento.strategies.MovimientoStrategyFactory;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

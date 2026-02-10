@@ -1,4 +1,4 @@
-package com.demo.trcuentas.infrastructure.adapters.in.exceptions;
+package com.demo.trcuentas.domain.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
 

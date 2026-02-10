@@ -1,6 +1,6 @@
 package com.demo.trcuentas.infrastructure.adapters.in.controllers;
 
-import com.demo.trcuentas.application.ReporteService;
+import com.demo.trcuentas.application.reporte.ReporteService;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.api.ReportsApi;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.ApiResponseReporteEstadoCuentaResponse;
 import com.demo.trcuentas.infrastructure.adapters.in.mappers.RestMapper;

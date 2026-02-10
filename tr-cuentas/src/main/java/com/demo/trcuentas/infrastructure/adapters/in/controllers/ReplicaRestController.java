@@ -1,6 +1,6 @@
 package com.demo.trcuentas.infrastructure.adapters.in.controllers;
 
-import com.demo.trcuentas.domain.clienteCuenta.ClienteReplicaService;
+import com.demo.trcuentas.domain.clienteCuenta.ports.in.ClienteReplicaService;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.api.ReplicaApi;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.ApiResponseVoid;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.ClienteRequest;

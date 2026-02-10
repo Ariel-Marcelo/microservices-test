@@ -2,7 +2,7 @@ package com.demo.trcuentas.infrastructure.adapters.out.persistence.cuenta;
 
 import com.demo.trcuentas.domain.cuenta.CuentaDomain;
 import com.demo.trcuentas.domain.cuenta.CuentaMapper;
-import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
+import com.demo.trcuentas.domain.cuenta.ports.out.CuentaRepositoryPort;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.cliente.ClienteCuentaJpaRepository;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.ClienteCuenta;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.Cuenta;

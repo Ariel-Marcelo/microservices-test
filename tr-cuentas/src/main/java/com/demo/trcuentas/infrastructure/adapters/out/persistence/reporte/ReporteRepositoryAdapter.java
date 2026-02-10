@@ -5,7 +5,7 @@ import com.demo.trcuentas.domain.reporte.EstadoCuentaReporte;
 import com.demo.trcuentas.domain.reporte.MovimientoReporte;
 import com.demo.trcuentas.domain.reporte.ReporteConsulta;
 import com.demo.trcuentas.domain.reporte.ReporteMapper;
-import com.demo.trcuentas.domain.reporte.ReporteRepositoryPort;
+import com.demo.trcuentas.domain.reporte.ports.out.ReporteRepositoryPort;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.cliente.ClienteCuentaJpaRepository;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.cuenta.CuentaJpaRepository;
 import com.demo.trcuentas.infrastructure.adapters.out.persistence.models.ClienteCuenta;

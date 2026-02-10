@@ -1,12 +1,11 @@
-package com.demo.trcuentas.application;
+package com.demo.trcuentas.application.cuenta;
 
-import com.demo.trcuentas.domain.clienteCuenta.ClienteDomain;
-import com.demo.trcuentas.domain.clienteCuenta.ClienteReplicaRepositoryPort;
+import com.demo.trcuentas.domain.clienteCuenta.ports.out.ClienteReplicaRepositoryPort;
 import com.demo.trcuentas.domain.cuenta.CuentaDomain;
-import com.demo.trcuentas.domain.cuenta.CuentaRepositoryPort;
-import com.demo.trcuentas.domain.cuenta.CuentaServicePort;
+import com.demo.trcuentas.domain.cuenta.ports.out.CuentaRepositoryPort;
+import com.demo.trcuentas.domain.cuenta.ports.in.CuentaServicePort;
 import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
-import com.demo.trcuentas.domain.movimiento.MovimientoRepositoryPort;
+import com.demo.trcuentas.domain.movimiento.ports.out.MovimientoRepositoryPort;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

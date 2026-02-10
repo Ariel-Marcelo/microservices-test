@@ -1,4 +1,4 @@
-package com.demo.trcuentas.domain.movimiento;
+package com.demo.trcuentas.domain.movimiento.strategies;
 
 import org.springframework.stereotype.Component;
 import java.math.BigDecimal;

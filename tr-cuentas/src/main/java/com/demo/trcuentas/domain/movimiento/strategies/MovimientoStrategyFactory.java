@@ -1,5 +1,6 @@
-package com.demo.trcuentas.domain.movimiento;
+package com.demo.trcuentas.domain.movimiento.strategies;
 
+import com.demo.trcuentas.domain.movimiento.strategies.MovimientoStrategy;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;

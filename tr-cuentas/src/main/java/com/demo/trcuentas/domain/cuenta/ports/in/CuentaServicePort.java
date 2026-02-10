@@ -1,4 +1,6 @@
-package com.demo.trcuentas.domain.cuenta;
+package com.demo.trcuentas.domain.cuenta.ports.in;
+
+import com.demo.trcuentas.domain.cuenta.CuentaDomain;
 
 import java.util.List;
 
