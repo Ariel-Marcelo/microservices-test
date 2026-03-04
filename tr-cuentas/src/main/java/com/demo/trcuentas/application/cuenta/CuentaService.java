@@ -5,6 +5,7 @@ import com.demo.trcuentas.domain.cuenta.CuentaDomain;
 import com.demo.trcuentas.domain.cuenta.ports.out.CuentaRepositoryPort;
 import com.demo.trcuentas.domain.cuenta.ports.in.CuentaServicePort;
 import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.TipoMovimiento;
 import com.demo.trcuentas.domain.movimiento.ports.out.MovimientoRepositoryPort;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -40,7 +41,7 @@ public class CuentaService implements CuentaServicePort {
             log.info("MOVIMIENTO INICIAL: Generando crédito inicial por {}", savedCuenta.getSaldoInicial());
             MovimientoDomain movimientoInicial = MovimientoDomain.builder()
                     .fecha(LocalDateTime.now())
-                    .tipoMovimiento("Credito")
+                    .tipoMovimiento(TipoMovimiento.CREDITO)
                     .valor(savedCuenta.getSaldoInicial())
                     .saldo(savedCuenta.getSaldoInicial())
                     .cuentaId(savedCuenta.getId())

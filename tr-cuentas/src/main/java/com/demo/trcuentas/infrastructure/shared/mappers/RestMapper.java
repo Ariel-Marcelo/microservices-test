@@ -3,6 +3,7 @@ package com.demo.trcuentas.infrastructure.shared.mappers;
 import com.demo.trcuentas.domain.clienteCuenta.ClienteDomain;
 import com.demo.trcuentas.domain.cuenta.CuentaDomain;
 import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.TipoMovimiento;
 import com.demo.trcuentas.domain.reporte.EstadoCuentaReporte;
 import com.demo.trcuentas.domain.reporte.ReporteConsulta;
 import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.*;

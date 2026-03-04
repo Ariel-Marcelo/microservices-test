@@ -3,6 +3,7 @@ package com.demo.trcuentas.application.movimiento;
 import com.demo.trcuentas.domain.cuenta.CuentaDomain;
 import com.demo.trcuentas.domain.cuenta.ports.out.CuentaRepositoryPort;
 import com.demo.trcuentas.domain.movimiento.MovimientoDomain;
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.TipoMovimiento;
 import com.demo.trcuentas.domain.movimiento.ports.out.MovimientoRepositoryPort;
 import com.demo.trcuentas.domain.movimiento.ports.in.MovimientoServicePort;
 import com.demo.trcuentas.domain.movimiento.strategies.MovimientoStrategy;
@@ -29,16 +30,16 @@ public class MovimientoService implements MovimientoServicePort {
 
     @Override
     public MovimientoDomain create(MovimientoDomain domain) {
-        log.info("INICIO TX CREATE: Procesando {} de {} en cuenta {}.", 
+        log.info("INICIO TX CREATE: Procesando {} de {} en cuenta {}.",
                 domain.getTipoMovimiento(), domain.getValor(), domain.getCuentaId());
 
         CuentaDomain cuenta = cuentaRepository.getActiveCuentasById(domain.getCuentaId());
-        
+
         MovimientoStrategy strategy = strategyFactory.getStrategy(domain.getTipoMovimiento());
         BigDecimal nuevoSaldo = strategy.calcularNuevoSaldo(cuenta.getSaldoInicial(), domain.getValor());
 
-        BigDecimal valorFinal = "Debito".equalsIgnoreCase(domain.getTipoMovimiento())
-                ? domain.getValor().negate() 
+        BigDecimal valorFinal = TipoMovimiento.DEBITO.equals(domain.getTipoMovimiento())
+                ? domain.getValor().negate()
                 : domain.getValor();
 
         domain.setFecha(LocalDateTime.now());
@@ -65,22 +66,21 @@ public class MovimientoService implements MovimientoServicePort {
     @Override
     public void delete(Long id) {
         log.warn("INICIO TX REVERSO: Movimiento ID: {}", id);
-        
+
         MovimientoDomain original = movimientoRepository.getMovimientosById(id);
         CuentaDomain cuenta = cuentaRepository.getActiveCuentasById(original.getCuentaId());
-        
-        String nuevoTipo;
-        if ("Debito".equalsIgnoreCase(original.getTipoMovimiento()) || original.getValor().compareTo(BigDecimal.ZERO) < 0) {
-            nuevoTipo = "Credito";
-        } else if ("Credito".equalsIgnoreCase(original.getTipoMovimiento()) || original.getValor().compareTo(BigDecimal.ZERO) > 0) {
-            nuevoTipo = "Debito";
+
+        TipoMovimiento nuevoTipo;
+        if (TipoMovimiento.DEBITO.equals(original.getTipoMovimiento()) || original.getValor().compareTo(BigDecimal.ZERO) < 0) {
+            nuevoTipo = TipoMovimiento.CREDITO;
+        } else if (TipoMovimiento.CREDITO.equals(original.getTipoMovimiento()) || original.getValor().compareTo(BigDecimal.ZERO) > 0) {
+            nuevoTipo = TipoMovimiento.DEBITO;
         } else {
             throw new IllegalArgumentException("No puede reversar esta transacción");
         }
 
         BigDecimal valorReverso = original.getValor().negate();
-        BigDecimal nuevoSaldo = cuenta.getSaldoInicial().add(valorReverso);
-        
+
         MovimientoStrategy strategy = strategyFactory.getStrategy(nuevoTipo);
         BigDecimal saldoFinal = strategy.calcularNuevoSaldo(cuenta.getSaldoInicial(), valorReverso.abs());
 
@@ -94,8 +94,8 @@ public class MovimientoService implements MovimientoServicePort {
 
         cuenta.setSaldoInicial(saldoFinal);
         cuentaRepository.save(cuenta);
-        
-        original.setTipoMovimiento("Reversado");
+
+        original.setTipoMovimiento(TipoMovimiento.REVERSADO);
         movimientoRepository.save(original);
         movimientoRepository.save(reverso);
     }
@@ -103,9 +103,9 @@ public class MovimientoService implements MovimientoServicePort {
     @Override
     public MovimientoDomain update(Long id, MovimientoDomain domain) {
         log.warn("INICIO TX UPDATE: Movimiento ID: {}", id);
-        
+
         MovimientoDomain original = movimientoRepository.getMovimientosById(id);
-        
+
         MovimientoDomain ultimo = movimientoRepository.findLastByCuentaId(original.getCuentaId())
                 .orElseThrow(() -> new EntityNotFoundException("No se encontraron movimientos."));
 
@@ -119,8 +119,8 @@ public class MovimientoService implements MovimientoServicePort {
         MovimientoStrategy strategy = strategyFactory.getStrategy(domain.getTipoMovimiento());
         BigDecimal nuevoSaldo = strategy.calcularNuevoSaldo(saldoBase, domain.getValor());
 
-        BigDecimal nuevoValor = "Debito".equalsIgnoreCase(domain.getTipoMovimiento()) 
-                ? domain.getValor().negate() 
+        BigDecimal nuevoValor = TipoMovimiento.DEBITO.equals(domain.getTipoMovimiento())
+                ? domain.getValor().negate()
                 : domain.getValor();
 
         cuenta.setSaldoInicial(nuevoSaldo);
@@ -133,3 +133,4 @@ public class MovimientoService implements MovimientoServicePort {
         return movimientoRepository.save(original);
     }
 }
+

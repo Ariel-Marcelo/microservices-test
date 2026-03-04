@@ -1,5 +1,6 @@
 package com.demo.trcuentas.domain.movimiento.strategies;
 
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.TipoMovimiento;
 import com.demo.trcuentas.domain.shared.exceptions.LowBalanceException;
 import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
@@ -7,8 +8,8 @@ import java.math.BigDecimal;
 @Component
 public class DebitoStrategy implements MovimientoStrategy {
     @Override
-    public String getTipoMovimiento() {
-        return "Debito";
+    public TipoMovimiento getTipoMovimiento() {
+        return TipoMovimiento.DEBITO;
     }
 
     @Override
@@ -20,3 +21,4 @@ public class DebitoStrategy implements MovimientoStrategy {
         return nuevoSaldo;
     }
 }
+

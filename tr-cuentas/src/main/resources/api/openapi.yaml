@@ -344,6 +344,7 @@ components:
           type: string
         tipoMovimiento:
           type: string
+          enum: [Credito, Debito]
         valor:
           type: number
           minimum: 0
@@ -363,7 +364,7 @@ components:
         estado:
           type: boolean
         tipoMovimiento:
-          type: string
+          $ref: '#/components/schemas/TipoMovimiento'
         valor:
           type: number
         saldo:
@@ -423,6 +424,12 @@ components:
           type: number
         saldo:
           type: number
+    TipoMovimiento:
+      type: string
+      enum:
+        - CREDITO
+        - DEBITO
+        - REVERSADO
     ApiResponseVoid:
       allOf:
         - $ref: '#/components/schemas/ApiResponseBase'

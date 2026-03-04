@@ -1,5 +1,6 @@
 package com.demo.trcuentas.infrastructure.persistence.models;
 
+import com.demo.trcuentas.infrastructure.adapters.in.rest.dtos.TipoMovimiento;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -20,7 +21,8 @@ public class Movimiento {
 
     private LocalDateTime fecha;
 
-    private String tipoMovimiento;
+    @Enumerated(EnumType.STRING)
+    private TipoMovimiento tipoMovimiento;
 
     @NotNull
     private BigDecimal valor;
