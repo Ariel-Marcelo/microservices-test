@@ -11,17 +11,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Client {
     private Long id;
-    private String nombre;
-    private String genero;
-    private Integer edad;
-    private String identificacion;
-    private String direccion;
-    private String telefono;
-    private String clienteId;
-    private String contrasenia;
-    private boolean estado;
+    private String name;
+    private String gender;
+    private Integer age;
+    private String identification;
+    private String address;
+    private String phone;
+    private String clientId;
+    private String password;
+    private boolean active;
 
     public void inactivate() {
-        this.estado = false;
+        this.active = false;
     }
 }

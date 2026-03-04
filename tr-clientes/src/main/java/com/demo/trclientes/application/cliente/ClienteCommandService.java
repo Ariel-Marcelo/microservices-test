@@ -1,9 +1,9 @@
 package com.demo.trclientes.application.cliente;
 
 import com.demo.trclientes.domain.cliente.models.Client;
-import com.demo.trclientes.domain.cliente.ports.in.ClienteCommandServicePort;
-import com.demo.trclientes.domain.cliente.ports.out.ClienteExternalServicePort;
-import com.demo.trclientes.domain.cliente.ports.out.ClienteRepositoryPort;
+import com.demo.trclientes.domain.cliente.ports.in.ClientCommandServicePort;
+import com.demo.trclientes.domain.cliente.ports.out.ClientExternalServicePort;
+import com.demo.trclientes.domain.cliente.ports.out.ClientRepositoryPort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,14 +13,14 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ClienteCommandService implements ClienteCommandServicePort {
+public class ClienteCommandService implements ClientCommandServicePort {
 
-    private final ClienteRepositoryPort repository;
-    private final ClienteExternalServicePort externalService;
+    private final ClientRepositoryPort repository;
+    private final ClientExternalServicePort externalService;
 
     @Override
     public Client create(Client clientDomain) {
-        log.info("INICIO CREATE CLIENTE: Creando cliente con Identificación: {}", clientDomain.getIdentificacion());
+        log.info("INICIO CREATE CLIENTE: Creando cliente con Identificación: {}", clientDomain.getIdentification());
         Client savedClient = repository.save(clientDomain);
 
         log.info("CLIENTE GUARDADO: Cliente ID {} guardado en BD local. Preparando réplica...", savedClient.getId());
@@ -32,7 +32,7 @@ public class ClienteCommandService implements ClienteCommandServicePort {
 
     @Override
     public Client update(Long id, Client clientDomain) {
-        log.warn("INICIO UPDATE CLIENTE: Actualizando Cliente ID {}. Identificación: {}", id, clientDomain.getIdentificacion());
+        log.warn("INICIO UPDATE CLIENTE: Actualizando Cliente ID {}. Identificación: {}", id, clientDomain.getIdentification());
 
         Client existingClient = repository.getActiveClientById(id);
         

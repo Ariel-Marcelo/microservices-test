@@ -12,7 +12,7 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "clientes")
-public class Cliente extends Persona {
+public class ClientEntity extends Person {
 
     @Column(name = "cliente_id", unique = true, nullable = false)
     private String clientId;

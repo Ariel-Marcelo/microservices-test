@@ -1,7 +1,7 @@
 package com.demo.trclientes.infrastructure.adapters.in.controllers.cliente;
 
-import com.demo.trclientes.domain.cliente.ports.in.ClienteCommandServicePort;
-import com.demo.trclientes.domain.cliente.ports.in.ClienteQueryServicePort;
+import com.demo.trclientes.domain.cliente.ports.in.ClientCommandServicePort;
+import com.demo.trclientes.domain.cliente.ports.in.ClientQueryServicePort;
 import com.demo.trclientes.domain.cliente.models.Client;
 import com.demo.trclientes.infrastructure.shared.mappers.ClientMapper;
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.*;
@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ClienteController implements ClientesApi {
 
-    private final ClienteCommandServicePort commandService;
-    private final ClienteQueryServicePort queryService;
+    private final ClientCommandServicePort commandService;
+    private final ClientQueryServicePort queryService;
     private final ClientMapper mapper;
 
     @Override

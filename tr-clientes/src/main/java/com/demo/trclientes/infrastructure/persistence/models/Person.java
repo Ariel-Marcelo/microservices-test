@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @MappedSuperclass
-public class Persona {
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

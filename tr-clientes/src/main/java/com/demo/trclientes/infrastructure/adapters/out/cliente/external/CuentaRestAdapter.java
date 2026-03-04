@@ -1,6 +1,6 @@
 package com.demo.trclientes.infrastructure.adapters.out.cliente.external;
 
-import com.demo.trclientes.domain.cliente.ports.out.ClienteExternalServicePort;
+import com.demo.trclientes.domain.cliente.ports.out.ClientExternalServicePort;
 import com.demo.trclientes.domain.cliente.models.Client;
 import com.demo.trclientes.infrastructure.shared.dtos.ClienteReplica;
 import com.demo.trclientes.infrastructure.shared.mappers.ClientMapper;
@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class CuentaRestAdapter implements ClienteExternalServicePort {
+public class CuentaRestAdapter implements ClientExternalServicePort {
 
     private final RestTemplate restTemplate;
     private final ClientMapper mapper;

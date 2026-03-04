@@ -1,8 +1,8 @@
 package com.demo.trclientes.application.cliente;
 
 import com.demo.trclientes.domain.cliente.models.Client;
-import com.demo.trclientes.domain.cliente.ports.in.ClienteQueryServicePort;
-import com.demo.trclientes.domain.cliente.ports.out.ClienteRepositoryPort;
+import com.demo.trclientes.domain.cliente.ports.in.ClientQueryServicePort;
+import com.demo.trclientes.domain.cliente.ports.out.ClientRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,9 +12,9 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ClienteQueryService implements ClienteQueryServicePort {
+public class ClienteQueryService implements ClientQueryServicePort {
 
-    private final ClienteRepositoryPort repository;
+    private final ClientRepositoryPort repository;
 
     @Override
     public List<Client> getAll() {

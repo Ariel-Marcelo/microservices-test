@@ -1,0 +1,16 @@
+package com.demo.trclientes.infrastructure.adapters.out.cliente;
+
+import com.demo.trclientes.infrastructure.persistence.models.ClientEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface ClientJpaRepository extends JpaRepository<ClientEntity, Long> {
+    List<ClientEntity> findByStateTrue();
+
+    Optional<ClientEntity> findByIdAndStateTrue(Long id);
+
+    Optional<ClientEntity> findByClientId(String clientId);
+
+}
