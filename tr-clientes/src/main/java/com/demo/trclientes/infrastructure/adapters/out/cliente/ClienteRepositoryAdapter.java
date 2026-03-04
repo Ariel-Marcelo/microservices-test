@@ -4,7 +4,7 @@ import com.demo.trclientes.domain.cliente.ports.out.ClienteRepositoryPort;
 import com.demo.trclientes.domain.cliente.models.Client;
 import com.demo.trclientes.infrastructure.shared.mappers.RestMapper;
 import com.demo.trclientes.infrastructure.persistence.models.Cliente;
-import jakarta.persistence.EntityNotFoundException;
+import com.demo.trclientes.domain.shared.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -35,14 +35,14 @@ public class ClienteRepositoryAdapter implements ClienteRepositoryPort {
     @Override
     public Client getActiveClientById(Long id) {
         Cliente entity = jpaRepository.findByIdAndEstadoTrue(id)
-                .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado o inactivo con ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado o inactivo con ID: " + id));
         return mapper.toDomain(entity);
     }
 
     @Override
     public Client getActiveClientByUniqueId(String id) {
         Cliente entity = jpaRepository.findByClienteId(id)
-                .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado o inactivo con ID: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado o inactivo con ID: " + id));
         return mapper.toDomain(entity);
     }
 }
