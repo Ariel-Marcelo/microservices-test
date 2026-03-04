@@ -2,7 +2,7 @@ package com.demo.trclientes.infrastructure.adapters.out.cliente;
 
 import com.demo.trclientes.domain.cliente.ports.out.ClienteRepositoryPort;
 import com.demo.trclientes.domain.cliente.models.Client;
-import com.demo.trclientes.infrastructure.shared.mappers.RestMapper;
+import com.demo.trclientes.infrastructure.shared.mappers.ClientMapper;
 import com.demo.trclientes.infrastructure.persistence.models.Cliente;
 import com.demo.trclientes.domain.shared.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class ClienteRepositoryAdapter implements ClienteRepositoryPort {
 
     private final ClienteJpaRepository jpaRepository;
-    private final RestMapper mapper;
+    private final ClientMapper mapper;
 
     @Override
     public Client save(Client clientDomain) {

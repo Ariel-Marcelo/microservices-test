@@ -3,7 +3,7 @@ package com.demo.trclientes.infrastructure.adapters.out.cliente.external;
 import com.demo.trclientes.domain.cliente.ports.out.ClienteExternalServicePort;
 import com.demo.trclientes.domain.cliente.models.Client;
 import com.demo.trclientes.infrastructure.shared.dtos.ClienteReplica;
-import com.demo.trclientes.infrastructure.shared.mappers.RestMapper;
+import com.demo.trclientes.infrastructure.shared.mappers.ClientMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 public class CuentaRestAdapter implements ClienteExternalServicePort {
 
     private final RestTemplate restTemplate;
-    private final RestMapper mapper;
+    private final ClientMapper mapper;
 
     @Value("${tr-cuentas.url}")
     private String urlAccountService;

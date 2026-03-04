@@ -3,7 +3,7 @@ package com.demo.trclientes.infrastructure.adapters.in.controllers.cliente;
 import com.demo.trclientes.domain.cliente.ports.in.ClienteCommandServicePort;
 import com.demo.trclientes.domain.cliente.ports.in.ClienteQueryServicePort;
 import com.demo.trclientes.domain.cliente.models.Client;
-import com.demo.trclientes.infrastructure.shared.mappers.RestMapper;
+import com.demo.trclientes.infrastructure.shared.mappers.ClientMapper;
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.*;
 import com.demo.trclientes.infrastructure.adapters.in.rest.api.ClientesApi;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class ClienteController implements ClientesApi {
 
     private final ClienteCommandServicePort commandService;
     private final ClienteQueryServicePort queryService;
-    private final RestMapper mapper;
+    private final ClientMapper mapper;
 
     @Override
     public ResponseEntity<ApiResponseCliente> createClient(ClienteRequest clienteRequest) {

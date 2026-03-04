@@ -14,11 +14,13 @@ import lombok.Setter;
 @Table(name = "clientes")
 public class Cliente extends Persona {
 
-    @Column(unique = true, nullable = false)
-    private String clienteId;
+    @Column(name = "cliente_id", unique = true, nullable = false)
+    private String clientId;
 
     @NotBlank
-    private String contrasenia;
+    @Column(name = "contrasenia")
+    private String password;
 
-    private boolean estado;
+    @Column(name = "estado")
+    private boolean state;
 }

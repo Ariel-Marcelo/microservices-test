@@ -15,16 +15,21 @@ public class Persona {
     private Long id;
 
     @NotBlank(message = "El nombre es obligatorio")
-    private String nombre;
+    @Column(name = "nombre")
+    private String name;
 
-    private String genero;
+    @Column(name = "genero")
+    private String gender;
 
-    private int edad;
+    @Column(name = "edad")
+    private int age;
 
-    @Column(unique = true)
-    private String identificacion;
+    @Column(name="identificacion", unique = true)
+    private String identification;
 
-    private String direccion;
+    @Column(name = "direccion")
+    private String address;
 
-    private String telefono;
+    @Column(name = "telefono")
+    private String phone;
 }
