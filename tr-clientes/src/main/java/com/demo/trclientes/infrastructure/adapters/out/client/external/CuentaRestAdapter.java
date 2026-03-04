@@ -1,4 +1,4 @@
-package com.demo.trclientes.infrastructure.adapters.out.cliente.external;
+package com.demo.trclientes.infrastructure.adapters.out.client.external;
 
 import com.demo.trclientes.domain.client.ports.out.ClientExternalServicePort;
 import com.demo.trclientes.domain.client.models.Client;

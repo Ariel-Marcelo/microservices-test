@@ -1,4 +1,4 @@
-package com.demo.trclientes.infrastructure.adapters.in.controllers.cliente;
+package com.demo.trclientes.infrastructure.adapters.in.controllers.client;
 
 import com.demo.trclientes.infrastructure.config.SecurityConfig;
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.OAuthTokenResponse;

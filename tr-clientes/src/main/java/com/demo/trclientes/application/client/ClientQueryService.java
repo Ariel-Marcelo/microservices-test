@@ -1,4 +1,4 @@
-package com.demo.trclientes.application.cliente;
+package com.demo.trclientes.application.client;
 
 import com.demo.trclientes.domain.client.models.Client;
 import com.demo.trclientes.domain.client.ports.in.ClientQueryServicePort;
@@ -12,7 +12,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ClienteQueryService implements ClientQueryServicePort {
+public class ClientQueryService implements ClientQueryServicePort {
 
     private final ClientRepositoryPort repository;
 

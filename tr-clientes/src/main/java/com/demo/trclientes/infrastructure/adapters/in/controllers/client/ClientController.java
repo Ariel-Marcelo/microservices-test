@@ -1,4 +1,4 @@
-package com.demo.trclientes.infrastructure.adapters.in.controllers.cliente;
+package com.demo.trclientes.infrastructure.adapters.in.controllers.client;
 
 import com.demo.trclientes.domain.client.ports.in.ClientCommandServicePort;
 import com.demo.trclientes.domain.client.ports.in.ClientQueryServicePort;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class ClienteController implements ClientesApi {
+public class ClientController implements ClientesApi {
 
     private final ClientCommandServicePort commandService;
     private final ClientQueryServicePort queryService;

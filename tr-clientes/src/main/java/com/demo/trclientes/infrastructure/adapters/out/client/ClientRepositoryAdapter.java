@@ -1,4 +1,4 @@
-package com.demo.trclientes.infrastructure.adapters.out.cliente;
+package com.demo.trclientes.infrastructure.adapters.out.client;
 
 import com.demo.trclientes.domain.client.ports.out.ClientRepositoryPort;
 import com.demo.trclientes.domain.client.models.Client;

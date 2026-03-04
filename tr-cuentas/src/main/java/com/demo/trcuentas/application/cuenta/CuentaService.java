@@ -69,28 +69,12 @@ public class CuentaService implements CuentaServicePort {
                 .orElseThrow(() -> new EntityNotFoundException("Cliente no encontrado o inactivo con ID: " + domain.getClienteId()));
 
         CuentaDomain cuentaExistente = cuentaRepository.getActiveCuentasById(id);
-        BigDecimal pastAmount = cuentaExistente.getSaldoInicial();
-        
         domain.setId(id);
-        CuentaDomain cuentaUpdated = cuentaRepository.save(domain);
-        BigDecimal newAmount = cuentaUpdated.getSaldoInicial();
+        domain.setSaldoInicial(cuentaExistente.getSaldoInicial());
+        domain.setClienteId(cuentaExistente.getClienteId());
+        domain.setEstado(cuentaExistente.getEstado());
 
-        if (pastAmount.compareTo(newAmount) != 0) {
-            BigDecimal diferencia = newAmount.subtract(pastAmount);
-            String tipoMovement = diferencia.compareTo(BigDecimal.ZERO) > 0 ? "Credito" : "Debito";
-            
-            log.warn("AJUSTE DE SALDO: {} -> {}. Diferencia: {}", pastAmount, newAmount, diferencia);
-
-            movimientoRepository.save(MovimientoDomain.builder()
-                    .fecha(LocalDateTime.now())
-                    .tipoMovimiento(tipoMovement)
-                    .valor(diferencia)
-                    .saldo(newAmount)
-                    .cuentaId(cuentaUpdated.getId())
-                    .build());
-        }
-
-        return cuentaUpdated;
+        return cuentaRepository.save(domain);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.demo.trclientes.application.cliente;
+package com.demo.trclientes.application.client;
 
 import com.demo.trclientes.domain.client.models.Client;
 import com.demo.trclientes.domain.client.ports.in.ClientCommandServicePort;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ClienteCommandService implements ClientCommandServicePort {
+public class ClientCommandService implements ClientCommandServicePort {
 
     private final ClientRepositoryPort repository;
     private final ClientExternalServicePort externalService;
