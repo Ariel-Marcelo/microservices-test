@@ -1,8 +1,8 @@
 package com.demo.trclientes.infrastructure.adapters.in.controllers.cliente;
 
-import com.demo.trclientes.domain.cliente.ports.in.ClientCommandServicePort;
-import com.demo.trclientes.domain.cliente.ports.in.ClientQueryServicePort;
-import com.demo.trclientes.domain.cliente.models.Client;
+import com.demo.trclientes.domain.client.ports.in.ClientCommandServicePort;
+import com.demo.trclientes.domain.client.ports.in.ClientQueryServicePort;
+import com.demo.trclientes.domain.client.models.Client;
 import com.demo.trclientes.infrastructure.shared.mappers.ClientMapper;
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.*;
 import com.demo.trclientes.infrastructure.adapters.in.rest.api.ClientesApi;

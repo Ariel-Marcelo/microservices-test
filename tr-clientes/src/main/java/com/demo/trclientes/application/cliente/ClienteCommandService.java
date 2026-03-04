@@ -1,9 +1,9 @@
 package com.demo.trclientes.application.cliente;
 
-import com.demo.trclientes.domain.cliente.models.Client;
-import com.demo.trclientes.domain.cliente.ports.in.ClientCommandServicePort;
-import com.demo.trclientes.domain.cliente.ports.out.ClientExternalServicePort;
-import com.demo.trclientes.domain.cliente.ports.out.ClientRepositoryPort;
+import com.demo.trclientes.domain.client.models.Client;
+import com.demo.trclientes.domain.client.ports.in.ClientCommandServicePort;
+import com.demo.trclientes.domain.client.ports.out.ClientExternalServicePort;
+import com.demo.trclientes.domain.client.ports.out.ClientRepositoryPort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

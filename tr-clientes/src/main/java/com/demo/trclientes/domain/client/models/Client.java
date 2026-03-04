@@ -1,4 +1,4 @@
-package com.demo.trclientes.domain.cliente.models;
+package com.demo.trclientes.domain.client.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

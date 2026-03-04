@@ -1,7 +1,7 @@
 package com.demo.trclientes.infrastructure.adapters.out.cliente.external;
 
-import com.demo.trclientes.domain.cliente.ports.out.ClientExternalServicePort;
-import com.demo.trclientes.domain.cliente.models.Client;
+import com.demo.trclientes.domain.client.ports.out.ClientExternalServicePort;
+import com.demo.trclientes.domain.client.models.Client;
 import com.demo.trclientes.infrastructure.shared.dtos.ClienteReplica;
 import com.demo.trclientes.infrastructure.shared.mappers.ClientMapper;
 import lombok.RequiredArgsConstructor;

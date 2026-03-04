@@ -1,8 +1,8 @@
 package com.demo.trclientes.application.cliente;
 
-import com.demo.trclientes.domain.cliente.models.Client;
-import com.demo.trclientes.domain.cliente.ports.in.ClientQueryServicePort;
-import com.demo.trclientes.domain.cliente.ports.out.ClientRepositoryPort;
+import com.demo.trclientes.domain.client.models.Client;
+import com.demo.trclientes.domain.client.ports.in.ClientQueryServicePort;
+import com.demo.trclientes.domain.client.ports.out.ClientRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

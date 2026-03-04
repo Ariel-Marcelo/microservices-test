@@ -1,6 +1,6 @@
 package com.demo.trclientes.infrastructure.shared.mappers;
 
-import com.demo.trclientes.domain.cliente.models.Client;
+import com.demo.trclientes.domain.client.models.Client;
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.ClienteRequest;
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.ClienteResponse;
 import com.demo.trclientes.infrastructure.persistence.models.ClientEntity;
