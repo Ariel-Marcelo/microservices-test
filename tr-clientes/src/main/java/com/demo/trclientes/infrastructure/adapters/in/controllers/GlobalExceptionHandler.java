@@ -1,7 +1,6 @@
 package com.demo.trclientes.infrastructure.adapters.in.controllers;
 
-import com.demo.trclientes.domain.shared.exceptions.LowBalanceException;
-import com.demo.trclientes.domain.shared.exceptions.ResourceNotFoundException;
+import com.demo.trclientes.domain.shared.exceptions.*;
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.ApiResponseError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,27 +24,49 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(LowBalanceException.class)
-    public ResponseEntity<ApiResponseError> handleSaldoNoDisponible(LowBalanceException ex) {
-        log.warn("WARN (400 Bad Request): Error de negocio (Saldo no disponible/Low Balance). Mensaje: {}", ex.getMessage());
+    public ResponseEntity<ApiResponseError> handleLowBalance(LowBalanceException ex) {
+        log.warn("WARN (400 Bad Request): Error de negocio (Saldo insuficiente). Mensaje: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ApiResponseError().status(false).message(ex.getMessage()));
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ApiResponseError> handleBadRequest(BadRequestException ex) {
+        log.warn("WARN (400 Bad Request): Solicitud incorrecta. Mensaje: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ApiResponseError().status(false).message(ex.getMessage()));
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ApiResponseError> handleConflict(ConflictException ex) {
+        log.warn("WARN (409 Conflict): Conflicto de datos. Mensaje: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ApiResponseError().status(false).message(ex.getMessage()));
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ApiResponseError> handleCustomValidation(ValidationException ex) {
+        log.warn("WARN (400 Bad Request): Fallo de validación personalizada. Errores: {}", ex.getErrors());
+        String detail = ex.getErrors() != null ? ex.getErrors().toString() : ex.getMessage();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ApiResponseError().status(false).message("Error de validación: " + detail));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponseError> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ApiResponseError> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error ->
                 errors.put(error.getField(), error.getDefaultMessage()));
 
-        log.warn("WARN (400 Bad Request): Fallo de validación de argumentos de entrada. Errores: {}", errors);
+        log.warn("WARN (400 Bad Request): Fallo de validación de Spring. Errores: {}", errors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ApiResponseError().status(false).message("Error de validación: " + errors.toString()));
+                .body(new ApiResponseError().status(false).message("Error de validación: " + errors));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponseError> handleGeneral(Exception ex) {
         log.error("FATAL ERROR (500 Internal Server Error): Error no controlado. Mensaje: {}", ex.getMessage(), ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiResponseError().status(false).message("Error interno del servidor: " + ex.getMessage()));
+                .body(new ApiResponseError().status(false).message("Ocurrió un error interno del servidor."));
     }
 }

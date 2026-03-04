@@ -1,6 +1,7 @@
 package com.demo.trclientes.infrastructure.adapters.in.controllers.cliente;
 
-import com.demo.trclientes.domain.cliente.ports.in.ClienteServicePort;
+import com.demo.trclientes.domain.cliente.ports.in.ClienteCommandServicePort;
+import com.demo.trclientes.domain.cliente.ports.in.ClienteQueryServicePort;
 import com.demo.trclientes.domain.cliente.models.Client;
 import com.demo.trclientes.infrastructure.shared.mappers.RestMapper;
 import com.demo.trclientes.infrastructure.adapters.in.rest.dtos.*;
@@ -17,10 +18,10 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class ClienteController implements ClientesApi {
 
-    private final ClienteServicePort clientService;
+    private final ClienteCommandServicePort commandService;
+    private final ClienteQueryServicePort queryService;
     private final RestMapper mapper;
 
     @Override
@@ -28,7 +29,7 @@ public class ClienteController implements ClientesApi {
         log.info("INICIO PETICIÓN: [POST /api/v1/clients] - Solicitud de creación de Cliente. Identificación: {}", clienteRequest.getIdentificacion());
         
         Client clientDomain = mapper.toDomain(clienteRequest);
-        Client createdClient = clientService.create(clientDomain);
+        Client createdClient = commandService.create(clientDomain);
         ClienteResponse responseDto = mapper.toResponse(createdClient);
         
         log.info("FIN PETICIÓN: [POST /api/v1/clients] - Cliente ID {} creado exitosamente. Status: 201 Created.", responseDto.getId());
@@ -43,7 +44,7 @@ public class ClienteController implements ClientesApi {
     public ResponseEntity<ApiResponseListCliente> getAllClients() {
         log.info("INICIO PETICIÓN: [GET /api/v1/clients] - Solicitud de listado de todos los clientes.");
         
-        List<ClienteResponse> clients = clientService.getAll().stream()
+        List<ClienteResponse> clients = queryService.getAll().stream()
                 .map(mapper::toResponse)
                 .collect(Collectors.toList());
         
@@ -59,12 +60,12 @@ public class ClienteController implements ClientesApi {
     @Override
     public ResponseEntity<ApiResponseCliente> getClientById(Long id) {
         log.info("INICIO PETICIÓN: [GET /api/v1/clients/{}] - Búsqueda de cliente por ID.", id);
-        
-        Client clientDomain = clientService.getById(id);
+
+        Client clientDomain = queryService.getById(id);
         ClienteResponse responseDto = mapper.toResponse(clientDomain);
         
         log.info("FIN PETICIÓN: [GET /api/v1/clients/{}] - Cliente ID {} encontrado. Status: 200 OK.", id, id);
-        
+
         ApiResponseCliente response = new ApiResponseCliente()
                 .status(true)
                 .data(responseDto);
@@ -74,14 +75,12 @@ public class ClienteController implements ClientesApi {
 
     @Override
     public ResponseEntity<ApiResponseCliente> updateClient(Long id, ClienteRequest clienteRequest) {
-        log.info("INICIO PETICIÓN: [PUT /api/v1/clients/{}] - Solicitud de actualización de Cliente ID: {}. Identificación: {}.", id, id, clienteRequest.getIdentificacion());
-        
+
         Client clientToUpdate = mapper.toDomain(clienteRequest);
-        Client updatedClient = clientService.update(id, clientToUpdate);
+        Client updatedClient = commandService.update(id, clientToUpdate);
         ClienteResponse responseDto = mapper.toResponse(updatedClient);
-        
-        log.info("FIN PETICIÓN: [PUT /api/v1/clients/{}] - Cliente ID {} actualizado. Status: 200 OK.", id, id);
-        
+
+
         ApiResponseCliente response = new ApiResponseCliente()
                 .status(true)
                 .data(responseDto);
@@ -91,11 +90,11 @@ public class ClienteController implements ClientesApi {
 
     @Override
     public ResponseEntity<ApiResponseVoid> deleteClient(Long id) {
-        log.warn("INICIO PETICIÓN: [DELETE /api/v1/clients/{}] - Solicitud de ELIMINACIÓN LÓGICA de Cliente ID {}.", id, id);
-        clientService.delete(id);
+        log.info("INICIO PETICIÓN: [DELETE /api/v1/clients/{}] - Solicitud de ELIMINACIÓN LÓGICA de Cliente ID {}.", id, id);
+        commandService.delete(id);
         
-        log.warn("FIN PETICIÓN: [DELETE /api/v1/clients/{}] - Cliente ID {} marcado como inactivo. Status: 200 OK.", id, id);
-        
+        log.info("FIN PETICIÓN: [DELETE /api/v1/clients/{}] - Cliente ID {} marcado como inactivo. Status: 200 OK.", id, id);
+
         ApiResponseVoid response = new ApiResponseVoid()
                 .status(true)
                 .data(null);

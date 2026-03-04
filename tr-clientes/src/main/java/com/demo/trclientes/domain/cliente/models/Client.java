@@ -20,4 +20,8 @@ public class Client {
     private String clienteId;
     private String contrasenia;
     private boolean estado;
+
+    public void inactivate() {
+        this.estado = false;
+    }
 }
