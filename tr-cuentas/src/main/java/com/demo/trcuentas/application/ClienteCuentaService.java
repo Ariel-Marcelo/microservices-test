@@ -27,6 +27,10 @@ public class ClienteCuentaService implements ClienteReplicaService {
         cliente.setNombre(dto.getNombre());
         cliente.setEstado(true);
 
+        // Consultas merge inecesarias
+        // Como cliente ya tiene un ID, entonces Hibernate asume que ya existe y tratára de hacer un insert, luego update si no lo encuentra.
+        // Evitarlo es sencillo si ClienteCuenta herada  Persistable<Long> e sobreescriba  metodos como isNew() y devuelva  true para que sepa si crear o caso contrario actualizar
+        // Se recomienda crear una bandera transitoria @Transient isNew en ClienteCuenta para que se retorne en el método isNew()
         repository.save(cliente);
         log.info("Replica guardada correctamente.");
     }
@@ -41,7 +45,7 @@ public class ClienteCuentaService implements ClienteReplicaService {
         cliente.setClienteId(dto.getClienteId());
         cliente.setNombre(dto.getNombre());
 
-        repository.save(cliente);
+        repository.save(cliente); // NO ES NECESARIO LLAMAR A SAVE porque el findById ya trackea el objeto
     }
 
     @Transactional
